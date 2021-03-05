@@ -13,6 +13,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class AdaptadorListView extends BaseAdapter {
 
@@ -22,6 +25,7 @@ public class AdaptadorListView extends BaseAdapter {
     private String[] datos;
     private int[] imagenes;
     SparseBooleanArray mCheckStates;
+    private ArrayList<String> clikados = new ArrayList<>();
 
     public AdaptadorListView(Context pcontext, String[] pdatos, int[] pimagenes) {
         contexto = pcontext;
@@ -31,9 +35,6 @@ public class AdaptadorListView extends BaseAdapter {
         inflater = (LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    private class ViewHolder {
-        CheckBox ck1;
-    }
 
     @Override
     public int getCount() {
@@ -53,13 +54,35 @@ public class AdaptadorListView extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view=inflater.inflate(R.layout.fila,null);
-        TextView nombre= (TextView) view.findViewById(R.id.textView2);
+        TextView nombretv= (TextView) view.findViewById(R.id.textView2);
         ImageView img=(ImageView) view.findViewById(R.id.imageView);
         CheckBox chckBox = (CheckBox) view.findViewById(R.id.checkBox);
 
+        final int fila=i;
+
+        chckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String nombre = nombretv.getText().toString();
+                Toast.makeText(contexto, "Checkbox "+fila+" clicked!", Toast.LENGTH_SHORT).show();
+                clikados.add(nombre);
+                for (int z=0; z<clikados.size();z++){
+                    System.out.println("z*****: " + clikados.get(z));
+                }
+            }
+        });
 
 
-        nombre.setText(datos[i]);
+
+
+
+
+
+
+
+
+        nombretv.setText(datos[i]);
         img.setImageResource(imagenes[i]);
         return view;
 
@@ -80,7 +103,6 @@ public class AdaptadorListView extends BaseAdapter {
         holder.ck1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (holder.ck1.isChecked())
                     mCheckStates.append(i,true);
                 else

@@ -114,6 +114,9 @@ public class ActivityPizza extends AppCompatActivity {
 
 
     public void onClickPedido(View v){
+        
+
+
         DialogFragment df = new DialogoPostre();
         df.show(getSupportFragmentManager(),"postre");
 
