@@ -26,9 +26,11 @@ public class ActivityPizza extends AppCompatActivity {
 
 
 
+        //categoria: pizza
         int[] equipos = {R.drawable.arrozz, R.drawable.ensalada, R.drawable.esp,R.drawable.las};
         String[] nombres = {"Pizza margarita", "Pizza bolognesa", "Pizza carbonara", "Pizza 4 Quesos"};
 
+        //categoria: ensalada
         int[] equipos2 = {R.drawable.arrozz, R.drawable.arrozz, R.drawable.arrozz, R.drawable.arrozz};
         String[] nombres2 = {"Ensalada mixta", "Ensalada tropical", "Ensalada de pasta","Ensalada campera"};
 
