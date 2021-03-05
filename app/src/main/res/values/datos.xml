@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="comidas">
+        <item>Pizza</item>
+        <item>Ensalada</item>
+        <item>Arroz</item>
+        <item>Espaguetti</item>
+        <item>Especialidad</item>
+    </string-array>
+    <string-array name="codigoscomidas">
+        <item>Pizza</item>
+        <item>Ensalada</item>
+        <item>Arroz</item>
+        <item>Espaguetti</item>
+        <item>Especialidad</item>
+    </string-array>
+</resources>

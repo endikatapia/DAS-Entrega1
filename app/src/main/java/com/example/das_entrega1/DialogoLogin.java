@@ -31,6 +31,7 @@ public class DialogoLogin extends DialogFragment {
 
         miListener =(ListenerdelDialogo) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //recogemos el usuario que nos viene de parametro desde el constructor
         builder.setTitle("El usuario "+ usuario + " no existe");
         builder.setMessage("¿Deseas Registrarte?");
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {

@@ -1,12 +1,16 @@
 package com.example.das_entrega1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ElViewHolder extends RecyclerView.ViewHolder {
@@ -18,6 +22,27 @@ public class ElViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         eltexto = itemView.findViewById(R.id.texto);
         laimagen = itemView.findViewById(R.id.foto);
+
+
+
+        //PREFERENCIAS ????
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
+        String comidaPref = prefs.getString("comidapref", "Pizza");
+        if (comidaPref.equals("Pizza")){
+            eltexto.setTypeface(null, Typeface.BOLD_ITALIC);
+            eltexto.setTextColor(Color.GREEN);
+        }
+        else if (comidaPref.equals("Ensalada")){
+            eltexto.setTypeface(null, Typeface.BOLD_ITALIC);
+            eltexto.setTextColor(Color.RED);
+        }
+
+
+
+
+
+
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

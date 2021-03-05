@@ -1,10 +1,15 @@
 package com.example.das_entrega1;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ElAdaptadorRecycler extends RecyclerView.Adapter<ElViewHolder> {
@@ -31,6 +36,7 @@ public class ElAdaptadorRecycler extends RecyclerView.Adapter<ElViewHolder> {
     public void onBindViewHolder(@NonNull ElViewHolder holder, int position) {
         holder.eltexto.setText(losnombres[position]);
         holder.laimagen.setImageResource(lasimagenes[position]);
+
     }
 
     @Override

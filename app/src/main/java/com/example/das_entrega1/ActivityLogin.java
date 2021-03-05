@@ -28,6 +28,7 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
         //Buscar elementos del layout
         logo=(ImageView) findViewById(R.id.logo);
         usuario = (EditText) findViewById(R.id.usuario);
+        //contraseña con puntos android:inputType="textPassword"
         contraseña = (EditText) findViewById(R.id.contraseña);
 
         //establecer a la ImageView el logo del restaurante encontrado en R.drawable
@@ -45,12 +46,19 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
         String password = contraseña.getText().toString();
         //miramos si esta en la BBDD
         boolean estaEnBD = gestorDB.esta(user);
-        boolean contraseñaCorrecta = gestorDB.contraseñCorrecta(user,password);
+        boolean contraseñaCorrecta = gestorDB.contraseñaCorrecta(user,password);
         //Si no esta en la BBDD le preguntamos si lo quiere registrar en la BBDD mediante un dialogo
         if (!estaEnBD) {
             System.out.println("El usuario "+ user+ " no esta en la BBDD");
-            DialogFragment df = new DialogoLogin(user);
-            df.show(getSupportFragmentManager(),"etiqueta1");
+            //el usuario y la contraseña deben contener al menos un caracter
+            if (user.matches("") || password.matches("") ) {
+                System.out.println("La Contraseña o el Usuario debe tener al menos 1 caracter");
+                Toast.makeText(ActivityLogin.this,"El usuario o la Contraseña deben tener al menos 1 caracter",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                DialogFragment df = new DialogoLogin(user);
+                df.show(getSupportFragmentManager(), "etiqueta1");
+            }
         }
         //Si existe, miramos a ver si ha metido bien la contraseña
         //Si la ha metido mal lanzamos un Toast avisandole de que ha introducido mal la contraseña

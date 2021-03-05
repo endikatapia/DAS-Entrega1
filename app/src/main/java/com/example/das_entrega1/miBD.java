@@ -23,24 +23,6 @@ public class miBD extends SQLiteOpenHelper {
 
     }
 
-    public String insert(String word){
-        SQLiteDatabase bd = getWritableDatabase();
-        String respuesta= "";
-        Cursor c = bd.rawQuery("SELECT * FROM Palabras WHERE Palabra='"+word+"'", null);
-        //Si esta metida la palabra, es decir, si en el cursor hay 1 elemento
-        if (c.moveToNext()){
-            respuesta = c.getString(1);
-        }
-        return  respuesta;
-    }
-
-    public void guardar(String word) {
-        SQLiteDatabase bd = getWritableDatabase();
-        bd.execSQL("INSERT INTO Palabras ('Palabra') VALUES ('"+word+"')");
-        System.out.println("Añadida");
-    }
-
-
     public boolean esta(String user) {
         SQLiteDatabase bd = getWritableDatabase();
         boolean esta=false;
@@ -59,7 +41,7 @@ public class miBD extends SQLiteOpenHelper {
         System.out.println("Usuario: " + user + " añadido en la BBDD Usuarios");
     }
 
-    public boolean contraseñCorrecta(String user, String password) {
+    public boolean contraseñaCorrecta(String user, String password) {
         SQLiteDatabase bd = getWritableDatabase();
         boolean correcta=false;
         Cursor c = bd.rawQuery("SELECT * FROM Usuarios WHERE Usuario='"+user+"' AND Contraseña='"+password+"'", null);
