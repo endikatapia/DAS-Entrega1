@@ -21,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DialogoPostre.ListenerdelDialogo {
 
     String[] idiomas =  { "Castellano", "Ingles", "Italiano"};
     TextView bienvenido;
@@ -120,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Pulsado CONTINUAR CON EL PEDIDO");
         DialogFragment df = new DialogoPostre();
         df.show(getSupportFragmentManager(),"postre");
+    }
+
+    public void alpulsarSi(){
+        Intent i2 = new Intent(MainActivity.this,ActivityPostre.class);
+        startActivity(i2);
+
     }
 
 

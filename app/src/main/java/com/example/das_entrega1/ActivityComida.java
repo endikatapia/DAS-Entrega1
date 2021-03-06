@@ -55,6 +55,8 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
     double[] preciosEspecialidad = {10.50,11,10,12,9};
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
