@@ -2,6 +2,7 @@ package com.example.das_entrega1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,6 +58,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
     double[] preciosEspecialidad = {10.50,11,10,12,9};
 
 
+    OutputStreamWriter fichero;
 
 
     @Override
@@ -211,6 +215,19 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
 
 
         //AÑADIR A UN FICHERO LO DEL ARRAYLIST<STRING> comidas PARA SABER QUE ES LO QUE VA PIDIENDO EL CLIENTE
+
+        try {
+            fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
+            for (int z=0;z<comidas.size();z++) {
+                fichero.write(comidas.get(z)+System.lineSeparator());
+            }
+            fichero.close();
+        } catch (IOException e) {
+            System.out.println("Error escribiendo el fichero");
+        }
+
+
+
         Intent i2 = new Intent(ActivityComida.this,MainActivity.class);
         //i2.putExtra("comidas",comidas);
         startActivity(i2);

@@ -3,12 +3,16 @@ package com.example.das_entrega1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.ListenerdelDialogo {
 
@@ -18,11 +22,22 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
     EditText usuario;
     EditText contraseña;
     miBD gestorDB;
+    OutputStreamWriter fichero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        //se crea el fichero donde se van a ir guardando los platos pedidos en modo privado
+        //es decir, cada vez que el usuario entre se le creara de nuevo.
+        try {
+            fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_PRIVATE));
+            fichero.close();
+        } catch (IOException e) {
+            System.out.println("Error escribiendo el fichero");
+        }
 
 
         //Buscar elementos del layout

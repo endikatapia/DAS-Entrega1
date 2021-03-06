@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -20,6 +21,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 
 public class MainActivity extends AppCompatActivity implements DialogoPostre.ListenerdelDialogo {
 
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         setSupportActionBar(findViewById(R.id.toolbar));
 

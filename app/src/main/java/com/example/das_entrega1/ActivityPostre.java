@@ -1,22 +1,37 @@
 package com.example.das_entrega1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class ActivityPostre extends AppCompatActivity implements FragmentLVMultipleChoice.listenerDelFragment {
+public class ActivityPostre extends AppCompatActivity implements FragmentLVMultipleChoice.listenerDelFragment,DialogoFinal.ListenerdelDialogo {
 
     ListView listView;
     ArrayAdapter eladaptador;
-    ArrayList<String> comidas = new ArrayList<>();
+    ArrayList<String> postres = new ArrayList<>();
+    OutputStreamWriter fichero;
 
     String[] datosPostre={"Profiteroles", "Tarta de queso", "Tiramisú", "Panna cotta"};
     int[] comidaPostre={R.drawable.profiteroles,R.drawable.tartaqueso,R.drawable.tiramisu,R.drawable.pannacotta};
@@ -73,12 +88,82 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
     }
 
     public void onClickFinalizar(View v){
-        //LANZAR LA NOTIFICACION DE QUE HA ACABADO EL PEDIDO Y DAR OPCION DE VOLVER A LA CARTA O VER EL PEDIDO
+        System.out.println("Pulsado FINALIZAR PEDIDO");
+        DialogFragment df = new DialogoFinal();
+        df.show(getSupportFragmentManager(),"final");
+
+
+        //Coger los valores que se han seleccionado de las listView
+        SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
+        if (checkedItems != null) {
+            for (int i=0; i<checkedItems.size(); i++) {
+                if (checkedItems.valueAt(i)) {
+                    String item = listView.getAdapter().getItem(checkedItems.keyAt(i)).toString();
+                    Log.i("TAG",item + " was selected");
+                    //añadirlos a el arraylist
+                    postres.add(item);
+                }
+            }
+        }
+
+        //ver los platos seleccionados del arraylist
+        for (int z=0;z<postres.size();z++) {
+            System.out.println("POSTRE: " + postres.get(z));
+            Toast.makeText(this,"Has añadido a tu pedido: "+postres.get(z),Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
+            for (int z=0;z<postres.size();z++) {
+                fichero.write(postres.get(z)+System.lineSeparator());
+            }
+            fichero.close();
+        } catch (IOException e) {
+            System.out.println("Error escribiendo el fichero");
+        }
 
     }
 
 
+    public void alpulsarFinalizar() {
+        //LANZAR LA NOTIFICACION DE QUE HA ACABADO EL PEDIDO Y DAR OPCION DE VOLVER A LA CARTA O VER EL PEDIDO
+        //fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_PRIVATE));
+        NotificationManager elManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder elBuilder = new NotificationCompat.Builder(this, "IdCanal");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel elCanal = new NotificationChannel("IdCanal", "NombreCanal",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            elManager.createNotificationChannel(elCanal);
 
 
+            elCanal.setDescription("Descripción del canal");
+            elCanal.enableLights(true);
+            elCanal.setLightColor(Color.RED);
+            elCanal.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            elCanal.enableVibration(true);
+        }
 
+        /*
+        Intent intent = new Intent(MainActivity.this,SegundaActividad.class);
+        intent.putExtra("id",1);
+        PendingIntent intentEnNot = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+         */
+
+        //configurar notificacion
+        elBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.logorestaurante))
+                .setSmallIcon(android.R.drawable.stat_sys_warning)
+                .setContentTitle("Ristorante Endika")
+                .setContentText("HAS FINALIZADO TU PEDIDO")
+                .setSubText("Pedido finalizado")
+                .setVibrate(new long[]{0, 1000, 500, 1000})
+                .setAutoCancel(true);
+                //.addAction(android.R.drawable.ic_input_add,"Añadir",intentEnNot);
+        //.setContentIntent(intentEnNot);
+
+        //lanzar notificacion
+        elManager.notify(1, elBuilder.build());
+
+    }
 }
