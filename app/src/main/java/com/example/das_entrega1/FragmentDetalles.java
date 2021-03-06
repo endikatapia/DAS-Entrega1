@@ -15,31 +15,21 @@ import androidx.fragment.app.Fragment;
 
 public class FragmentDetalles extends Fragment {
 
-    ListView lv;
-    Button pedir;
-
-
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragmentdetalles,container,false);
-        //pedir=(Button)v.findViewById(R.id.pedir);
         return v;
     }
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //TextView nombre= getView().findViewById(R.id.nombre);
-        //TextView titulos= getView().findViewById(R.id.titulos);
-        //ImageView imagen = getView().findViewById(R.id.imagenV);
-
-
 
 
     }
 
 
-    public void hacerAlgo(String elemento, int imageCode, int titulos) {
+    public void setDatos(String elemento, int imageCode, String ingredientes, double precio) {
 
 
 
@@ -49,8 +39,11 @@ public class FragmentDetalles extends Fragment {
         ImageView imagen = getView().findViewById(R.id.imagenV);
         imagen.setImageResource(imageCode);
 
-        TextView titulo= getView().findViewById(R.id.titulos);
-        titulo.setText("Titulos: " + titulos);
+        TextView ing= getView().findViewById(R.id.ingredientes);
+        ing.setText("Ingredientes: " + ingredientes);
+
+        TextView precios= getView().findViewById(R.id.precios);
+        precios.setText("Precio: " + precio + "€");
 
     }
 

@@ -26,6 +26,7 @@ public class FragmentLVMultipleChoice extends Fragment {
     public interface listenerDelFragment{
         //void seleccionarElemento(String equipo, int imagen, int titulos);
         void ponerLista();
+
         //ArrayList<String> seleccionados();
     }
     private listenerDelFragment elListener;

@@ -27,8 +27,8 @@ public class DialogoPostre extends DialogFragment {
         //miListener =(ListenerdelDialogo) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Continuar con el pedido");
-        builder.setMessage("¿Desea pedir Postre?");
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setMessage("¿Desea ir a los Postres o se le ha olvidado pedir algo de la carta?");
+        builder.setPositiveButton("!POSTRES!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -37,7 +37,7 @@ public class DialogoPostre extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Volver a la carta", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast to2 = Toast.makeText(getContext(),"Pulsado no",Toast.LENGTH_SHORT);

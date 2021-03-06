@@ -1,8 +1,10 @@
 package com.example.das_entrega1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -52,10 +54,17 @@ public class MainActivity extends AppCompatActivity {
         eladaptador = new ElAdaptadorRecycler(nombres,categorias);
         lalista.setAdapter(eladaptador);
 
+
+        LinearLayoutManager elLayoutLineal= new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        lalista.setLayoutManager(elLayoutLineal);
+
+        /*
         //GRID LAYOUT
         GridLayoutManager elLayoutRejillaIgual= new GridLayoutManager(this,3,GridLayoutManager.VERTICAL,false);
         lalista.setLayoutManager(elLayoutRejillaIgual);
 
+
+         */
 
 
 
@@ -104,6 +113,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
      */
+
+
+    //AL HACER CLICK EN CONTINUAR PEDIDO
+    public void onClickContinuar(View v){
+        System.out.println("Pulsado CONTINUAR CON EL PEDIDO");
+        DialogFragment df = new DialogoPostre();
+        df.show(getSupportFragmentManager(),"postre");
+    }
+
 
 
     //MENU DE TOOLBAR CON PREFERENCIAS

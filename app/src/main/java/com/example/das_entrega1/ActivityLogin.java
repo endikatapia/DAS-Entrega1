@@ -64,7 +64,7 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
         //Si la ha metido mal lanzamos un Toast avisandole de que ha introducido mal la contraseña
         else if (estaEnBD && !contraseñaCorrecta){
             System.out.println("El usuario "+ user +" existe pero la contraseña es incorrecta");
-            Toast.makeText(ActivityLogin.this,usuario.getText().toString()+" existe, PERO Contraseña incorrecta",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityLogin.this,"El ususario "+ usuario.getText().toString()+" existe, PERO la Contraseña es incorrecta",Toast.LENGTH_SHORT).show();
         }
         //Sino intent a MainActivity (a la carta)
         else if (estaEnBD && contraseñaCorrecta) {

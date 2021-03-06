@@ -12,9 +12,10 @@ public class ActivityDetalles extends AppCompatActivity {
         setContentView(R.layout.activity_detalles);
 
         FragmentDetalles elotro = (FragmentDetalles) getSupportFragmentManager().findFragmentById(R.id.fragmentFotoIndv);
-        String equipo=getIntent().getStringExtra("equipo");
+        String plato=getIntent().getStringExtra("nombre");
         int imagen = getIntent().getIntExtra("imagen",0);
-        int titulos = getIntent().getIntExtra("titulos",0);
-        elotro.hacerAlgo(equipo,imagen,titulos);
+        String ingredientes = getIntent().getStringExtra("ingredientes");
+        double precio = getIntent().getDoubleExtra("precio",0);
+        elotro.setDatos(plato,imagen,ingredientes,precio);
     }
 }
