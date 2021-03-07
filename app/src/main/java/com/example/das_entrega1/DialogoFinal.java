@@ -31,7 +31,6 @@ public class DialogoFinal extends DialogFragment {
         builder.setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(),"Pulsado si",Toast.LENGTH_SHORT).show();
                 miListener.alpulsarFinalizar();
 
             }
@@ -40,7 +39,6 @@ public class DialogoFinal extends DialogFragment {
         builder.setNegativeButton("Volver a los postres", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(),"Pulsado no",Toast.LENGTH_SHORT);
 
             }
         });

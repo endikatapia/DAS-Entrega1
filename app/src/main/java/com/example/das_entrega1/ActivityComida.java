@@ -1,10 +1,12 @@
 package com.example.das_entrega1;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -26,6 +28,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
     ListView listView;
     ArrayAdapter eladaptador;
     ArrayList<String> comidas = new ArrayList<>();
+    double precio;
 
     //DATOS PIZZA(CATEGORIA 0)
     String[] datosPizza={"Pizza Margarita", "Pizza Boloñesa", "Pizza Carbonara", "Pizza 4 Quesos","Pizza Napolitana","Pizza Atun","Pizza Sorrento","Pizza Tropical"};
@@ -37,7 +40,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
     String[] datosEnsalada={"Ensalada Mixta", "Ensalada Tropical", "Ensalada de Pasta","Ensalada Campera","Ensalada Capresse","Ensalada Fruti di mare"};
     int[] comidaEnsalada={R.drawable.ensaladamixta,R.drawable.ensaladatropical,R.drawable.ensaladapasta,R.drawable.ensaladacampera,R.drawable.ensaladacapresse,R.drawable.ensaladafdmare};
     String[] ingredientesEnsalada={"atún, espárragos, cebolla, tomate, lechuga","piña, manzana, maíz, tomate, lechuga, jamón, salsa rosa","pasta, atún, maíz, aceitunas, cebolla, salsa rosa","patata, maíz, nueces, lechuga, salsa rosa","mozzarella de búfala, tomate, orégano, aceitunas, alcaparras","mejillones, gambas, palitos de cangrejo, tomate, lechuga y salsa rosa"};
-    double[] preciosEnsalada = {7,9,9,10,10,9,9.5};
+    double[] preciosEnsalada = {7,9,9,10,9,9.5};
 
     //DATOS ARROZ(CATEGORIA 2)
     String[] datosArroz={"Risotto de Setas","Risotto Marinero","Risotto 4 Quesos"};
@@ -191,6 +194,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClickAnadirYvolver(View v){
         //https://stackoverflow.com/questions/3996938/why-is-listview-getcheckeditempositions-not-returning-correct-values
         //Coger los valores que se han seleccionado de las listView
@@ -209,8 +213,10 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
         //ver los platos seleccionados del arraylist
         for (int z=0;z<comidas.size();z++) {
             System.out.println("PLATO: " + comidas.get(z));
-            Toast.makeText(this,"Has añadido a tu pedido: "+comidas.get(z),Toast.LENGTH_SHORT).show();
         }
+        String platos = String.join(", ", comidas);
+        Toast.makeText(this,"Has añadido a tu pedido: "+platos,Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -219,8 +225,38 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
         try {
             fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
             for (int z=0;z<comidas.size();z++) {
-                fichero.write(comidas.get(z)+System.lineSeparator());
+                if (comidas.get(z).equals("Pizza Margarita")){ precio= 10; }
+                else if (comidas.get(z).equals("Pizza Boloñesa")){ precio=13.50; }
+                else if (comidas.get(z).equals("Pizza Carbonara")){ precio=13.50; }
+                else if (comidas.get(z).equals("Pizza 4 Quesos")){ precio=12.50; }
+                else if (comidas.get(z).equals("Pizza Napolitana")){ precio=11.50; }
+                else if (comidas.get(z).equals("Pizza Atun")){ precio=12.50; }
+                else if (comidas.get(z).equals("Pizza Sorrento")){ precio=13; }
+                else if (comidas.get(z).equals("Pizza Tropical")){ precio=13.50; }
+                else if (comidas.get(z).equals("Ensalada Mixta")){ precio=7; }
+                else if (comidas.get(z).equals("Ensalada Tropical")){ precio=9; }
+                else if (comidas.get(z).equals("Ensalada de Pasta")){ precio=9; }
+                else if (comidas.get(z).equals("Ensalada Campera")){ precio=10; }
+                else if (comidas.get(z).equals("Ensalada Capresse")){ precio=9; }
+                else if (comidas.get(z).equals("Ensalada Fruti di mare")){ precio=9.5; }
+                else if (comidas.get(z).equals("Risotto de Setas")){ precio=10; }
+                else if (comidas.get(z).equals("Risotto Marinero")){ precio=10; }
+                else if (comidas.get(z).equals("Risotto 4 Quesos")){ precio=11; }
+                else if (comidas.get(z).equals("Espagueti al Pesto")){ precio=9; }
+                else if (comidas.get(z).equals("Espagueti Boloñesa")){ precio=9; }
+                else if (comidas.get(z).equals("Espagueti Carbonara")){ precio=9; }
+                else if (comidas.get(z).equals("Espagueti Siciliana")){ precio=10; }
+                else if (comidas.get(z).equals("Espagueti con Gambas")){ precio=11; }
+                else if (comidas.get(z).equals("Lasagna de Carne")){ precio=10.5; }
+                else if (comidas.get(z).equals("Ravioli de Setas")){ precio=11; }
+                else if (comidas.get(z).equals("Tagliatelle al Andrea")){ precio=10; }
+                else if (comidas.get(z).equals("Carpaccio de Carne")){ precio=12; }
+                else if (comidas.get(z).equals("Provolone a la Plancha")){ precio=9; }
+
+
+                fichero.write(comidas.get(z)+"; Precio: "+ precio +System.lineSeparator());
             }
+            //System.out.println("Precio TOTAL: " + precioTotal);
             fichero.close();
         } catch (IOException e) {
             System.out.println("Error escribiendo el fichero");

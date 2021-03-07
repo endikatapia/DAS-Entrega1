@@ -16,6 +16,10 @@ public class miBD extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //Crear la tabla de Usuarios (usuario(PK): VARCHAR(255); contraseña: VARCHAR(255))
         sqLiteDatabase.execSQL("CREATE TABLE Usuarios ('Usuario' VARCHAR(255) PRIMARY KEY NOT NULL, 'Contraseña' VARCHAR(255))");
+        //Crear la tabla de Pedidos (codigoPedido(PK): INTEGER, elementosPedidos: VARCHAR(255), precioPedido: REAL);
+        sqLiteDatabase.execSQL("CREATE TABLE Pedidos ('CodigoPedido' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'Elementos' VARCHAR(255), 'Precio' REAL)");
+
+
     }
 
     @Override
@@ -53,4 +57,15 @@ public class miBD extends SQLiteOpenHelper {
         return correcta;
 
     }
+
+    public void guardarPedido(String elementosPedidosSinRepeticion, double precioTotal) {
+        SQLiteDatabase bd = getWritableDatabase();
+        //añadimos a la BD Pedidos el ultimo pedido realizado
+        bd.execSQL("INSERT INTO Pedidos('Elementos','Precio') VALUES ('"+elementosPedidosSinRepeticion+"','"+precioTotal+"')");
+        System.out.println("Pedido añadido con estos ELEMENTOS: " + elementosPedidosSinRepeticion + " y este PRECIO: "+ precioTotal);
+
+
+    }
+
+
 }

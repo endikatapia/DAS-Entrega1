@@ -32,7 +32,6 @@ public class DialogoPostre extends DialogFragment {
         builder.setPositiveButton("!POSTRES!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(),"Pulsado si",Toast.LENGTH_SHORT).show();
                 miListener.alpulsarSi();
 
             }
@@ -41,7 +40,6 @@ public class DialogoPostre extends DialogFragment {
         builder.setNegativeButton("Volver a la carta", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(),"Pulsado no",Toast.LENGTH_SHORT);
 
             }
         });

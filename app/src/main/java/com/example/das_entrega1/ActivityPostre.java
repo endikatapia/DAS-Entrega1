@@ -1,5 +1,6 @@
 package com.example.das_entrega1;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
@@ -10,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
@@ -22,9 +24,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class ActivityPostre extends AppCompatActivity implements FragmentLVMultipleChoice.listenerDelFragment,DialogoFinal.ListenerdelDialogo {
 
@@ -32,6 +38,10 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
     ArrayAdapter eladaptador;
     ArrayList<String> postres = new ArrayList<>();
     OutputStreamWriter fichero;
+    BufferedReader ficherointerno;
+    private String[] partesPlato;
+    double precio;
+    miBD gestorDB;
 
     String[] datosPostre={"Profiteroles", "Tarta de queso", "Tiramisú", "Panna cotta"};
     int[] comidaPostre={R.drawable.profiteroles,R.drawable.tartaqueso,R.drawable.tiramisu,R.drawable.pannacotta};
@@ -44,7 +54,8 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
         setContentView(R.layout.activity_postre);
         listView=findViewById(R.id.lv);
 
-
+        //para guardar en la BD el pedido
+        gestorDB = new miBD (this, "Pedidos", null, 1);
     }
 
 
@@ -87,47 +98,37 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
         });
     }
 
+
+    //BOTON
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClickFinalizar(View v){
         System.out.println("Pulsado FINALIZAR PEDIDO");
         DialogFragment df = new DialogoFinal();
         df.show(getSupportFragmentManager(),"final");
 
-
-        //Coger los valores que se han seleccionado de las listView
-        SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
-        if (checkedItems != null) {
-            for (int i=0; i<checkedItems.size(); i++) {
-                if (checkedItems.valueAt(i)) {
-                    String item = listView.getAdapter().getItem(checkedItems.keyAt(i)).toString();
-                    Log.i("TAG",item + " was selected");
-                    //añadirlos a el arraylist
-                    postres.add(item);
-                }
-            }
-        }
-
-        //ver los platos seleccionados del arraylist
-        for (int z=0;z<postres.size();z++) {
-            System.out.println("POSTRE: " + postres.get(z));
-            Toast.makeText(this,"Has añadido a tu pedido: "+postres.get(z),Toast.LENGTH_SHORT).show();
-        }
-
-        try {
-            fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
-            for (int z=0;z<postres.size();z++) {
-                fichero.write(postres.get(z)+System.lineSeparator());
-            }
-            fichero.close();
-        } catch (IOException e) {
-            System.out.println("Error escribiendo el fichero");
-        }
-
     }
 
 
+    //DIALOG
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void alpulsarFinalizar() {
+        //PRIMERO GUARDAR EN EL FICHERO LOS POSTRES QUE ESTAN SELECCIONADOS
+        //Coger los valores que se han seleccionado de las listView
+        this.guardarEnElFichero();
+
+
+        //GUARDAR EN LA DB EL INT PK AUTOINCREMENto idPedido, STRING DE ELEMENTOS PEDIDOS, double PRECIO TOTAL
+        this.guardarEnLaBBDD();
+
+        //MIRAR LO DEL SALDO DEL CLIENTE??????
+
+
+
         //LANZAR LA NOTIFICACION DE QUE HA ACABADO EL PEDIDO Y DAR OPCION DE VOLVER A LA CARTA O VER EL PEDIDO
-        //fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_PRIVATE));
+        //fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_PRIVATE)); --> al darle a realizar otro pedido
+        //La otra opcion ver ultimo pedido --> recorrer desde la BD pedidos y mostralo en una nueva actividad
+
+
         NotificationManager elManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder elBuilder = new NotificationCompat.Builder(this, "IdCanal");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -165,5 +166,104 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
         //lanzar notificacion
         elManager.notify(1, elBuilder.build());
 
+
+
+
+        //DESABILITAR BOTON
+
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void guardarEnLaBBDD() {
+        double precioTotal=0;
+        ArrayList<String> elementosPedidosConRepetidos = new ArrayList<>();
+
+        try {
+            //abrimos el fichero para leerlo
+             ficherointerno = new BufferedReader(new InputStreamReader(openFileInput("ficheroPedido.txt")));
+
+            String linea;
+            while ((linea = ficherointerno.readLine()) != null) {
+
+                //leemos las lineas del fichero --> Panna cotta; Precio: 6.0
+                System.out.println("LINEA EN EL FICHERO: " + linea);
+                //partimos la linea en 2 cachos partiendo de ;
+                partesPlato=linea.split(";");
+                elementosPedidosConRepetidos.add(partesPlato[0]);
+                //nos quedamos con la parte de Precio: 6.0 y la volvemos a partir en el " ".
+                String[] precioArray = partesPlato[1].split(" ");
+                //nos quedamos con la parte del numero (6.0)
+                String precioInd = precioArray[2];
+                System.out.println("precio parte numero: " + precioInd);
+                //lo parseamos a Double
+                double precioIndv = Double.parseDouble(precioInd);
+                //se va sumando el precio total
+                precioTotal = precioTotal+precioIndv;
+            }
+
+
+            //guardar elementosPedidos sin repetidos y precio total en la BD Pedidos
+            //Para que no aparezcan repetidos usar LinkedHashSet, ya que, solo nos interesa
+            //guardar en la BD los platos diferentes que ha pedido sin importar la cantidad.
+            //En el precio total si que se sumaran todos los elementos (aunque esten repetidos)
+            Set<String> s = new LinkedHashSet<String>(elementosPedidosConRepetidos);
+            String elementosPedidosSinRepeticion = String.join(", ", s);;
+
+            System.out.println("Elementos pedidos:" + elementosPedidosSinRepeticion);
+            System.out.println("PRECIO TOTAL: " +precioTotal);
+
+            //guardarlos en la BD
+            //SQLiteDatabase bd = gestorDB.getWritableDatabase();
+            //bd.execSQL("INSERT INTO Pedidos('ElementosPedidos','PrecioPedido') VALUES ('"+elementosPedidosSinRepeticion+"','"+precioTotal+"')");
+
+            gestorDB.guardarPedido(elementosPedidosSinRepeticion,precioTotal);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void guardarEnElFichero(){
+        SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
+        if (checkedItems != null) {
+            for (int i=0; i<checkedItems.size(); i++) {
+                if (checkedItems.valueAt(i)) {
+                    String item = listView.getAdapter().getItem(checkedItems.keyAt(i)).toString();
+                    Log.i("TAG",item + " was selected");
+                    //añadirlos a el arraylist
+                    postres.add(item);
+                }
+            }
+        }
+
+        //ver los platos seleccionados del arraylist
+        for (int z=0;z<postres.size();z++) {
+            System.out.println("POSTRE: " + postres.get(z));
+        }
+        String postres_s = String.join(", ", postres);
+        Toast.makeText(this,"Has añadido a tu pedido: "+postres_s,Toast.LENGTH_SHORT).show();
+
+        try {
+            fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
+            for (int z=0;z<postres.size();z++) {
+                if (postres.get(z).equals("Profiteroles")){ precio= 5; }
+                else if (postres.get(z).equals("Tarta de queso")){ precio=4; }
+                else if (postres.get(z).equals("Tiramisú")){ precio=6.50; }
+                else if (postres.get(z).equals("Panna cotta")){ precio=6; }
+
+
+                fichero.write(postres.get(z)+"; Precio: "+ precio +System.lineSeparator());
+            }
+            fichero.close();
+        } catch (IOException e) {
+            System.out.println("Error escribiendo el fichero");
+        }
+
+    }
+
+
 }
