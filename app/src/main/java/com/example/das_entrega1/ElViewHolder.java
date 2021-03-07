@@ -17,15 +17,18 @@ public class ElViewHolder extends RecyclerView.ViewHolder {
     public TextView eltexto;
     public ImageView laimagen;
     public boolean[] seleccion;
+    //public CardView cardView;
 
     public ElViewHolder(@NonNull View itemView) {
         super(itemView);
         eltexto = itemView.findViewById(R.id.texto);
         laimagen = itemView.findViewById(R.id.foto);
+        //cardView = itemView.findViewById(R.id.cardView);
 
 
 
         //PREFERENCIAS ????
+        /*
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
         String comidaPref = prefs.getString("comidapref", "Pizza");
         if (comidaPref.equals("Pizza")){
@@ -36,6 +39,8 @@ public class ElViewHolder extends RecyclerView.ViewHolder {
             eltexto.setTypeface(null, Typeface.BOLD_ITALIC);
             eltexto.setTextColor(Color.RED);
         }
+
+         */
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

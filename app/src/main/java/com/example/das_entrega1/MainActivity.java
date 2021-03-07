@@ -1,5 +1,6 @@
 package com.example.das_entrega1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
     RecyclerView lalista;
     ElAdaptadorRecycler eladaptador;
     Spinner spin;
+    int[] categorias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,24 +44,74 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
 
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        bienvenido= (TextView) findViewById(R.id.textViewBienvenido);
+        bienvenido= findViewById(R.id.textViewBienvenido);
 
 
+        //tratamos el nombre de usuario que viene de la otra aplicacion
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String user = extras.getString("usuario");
-            bienvenido.setText(bienvenido.getText().toString()+user);
+            bienvenido.setText("Bienvenido: "+user);
             bienvenido.setTypeface(null, Typeface.BOLD_ITALIC);
         }
+
+
+        //cuando se rota que se guarde el nombre
+        if (savedInstanceState != null) {
+            String user = savedInstanceState.getString("user");
+            System.out.println("Usuario: " + user);
+            bienvenido.setText(user);
+            bienvenido.setTypeface(null, Typeface.BOLD_ITALIC);
+        }
+
 
 
         lalista = findViewById(R.id.rv);
 
 
-        int[] categorias= {R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz,R.drawable.esp, R.drawable.las};
         String[] nombres={"Pizzas", "Ensaladas", "Arroces", "Espagueti", "Especialidad"};
-        eladaptador = new ElAdaptadorRecycler(nombres,categorias);
-        lalista.setAdapter(eladaptador);
+
+        //Con preferencias
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String comidaPref = prefs.getString("comidapref", "Pizza");
+        if (comidaPref.equals("Pizza")){
+            //si la preferencia del cliente son las pizzas la imagen del cardView pizza se pondra con fondo verde
+            categorias= new int[]{R.drawable.pizzaprefs, R.drawable.ensalada, R.drawable.arrozz,R.drawable.esp, R.drawable.las};
+            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
+            lalista.setAdapter(eladaptador);
+        }
+        else if (comidaPref.equals("Ensalada")){
+            //si la preferencia del cliente son las ensaladas la imagen del cardView ensalada se pondra con fondo verde
+            categorias= new int[]{R.drawable.pizza, R.drawable.ensaladaprefs, R.drawable.arrozz,R.drawable.esp, R.drawable.las};
+            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
+            lalista.setAdapter(eladaptador);
+        }
+        else if (comidaPref.equals("Arroz")){
+            //si la preferencia del cliente es el arroz la imagen del cardView arroz se pondra con fondo verde
+            categorias= new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozprefs,R.drawable.esp, R.drawable.las};
+            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
+            lalista.setAdapter(eladaptador);
+        }
+        else if (comidaPref.equals("Espagueti")){
+            //si la preferencia del cliente son las espagueti la imagen del cardView espagueti se pondra con fondo verde
+            categorias= new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz,R.drawable.espprefs, R.drawable.las};
+            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
+            lalista.setAdapter(eladaptador);
+        }
+        else if (comidaPref.equals("Especialidad")){
+            //si la preferencia del cliente es la especialidad la imagen del cardView especialidad se pondra con fondo verde
+            categorias= new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz,R.drawable.esp, R.drawable.lasprefs};
+            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
+            lalista.setAdapter(eladaptador);
+        }
+        else{
+            //Si no tiene ninguna preferencia se pondran toas con fondo normal
+            categorias = new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz, R.drawable.esp, R.drawable.las};
+            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
+            lalista.setAdapter(eladaptador);
+
+        }
+
 
 
         LinearLayoutManager elLayoutLineal= new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
@@ -102,6 +156,28 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
                 });
 
 
+
+    }
+
+
+
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        String user  = bienvenido.getText().toString();
+        outState.putString("user", user);
+
+        /*
+        TextView estados = findViewById(R.id.etiqueta2);
+        outState.putString("estados",estados.getText().toString()+ "onDestroy\n");
+
+        String localizacion = getResources().getConfiguration().locale.toLanguageTag();
+        System.out.println("LOC" + localizacion);
+        outState.putString("localizacion",localizacion);
+
+         */
 
     }
 

@@ -4,14 +4,14 @@
         <item>Pizza</item>
         <item>Ensalada</item>
         <item>Arroz</item>
-        <item>Espaguetti</item>
+        <item>Espagueti</item>
         <item>Especialidad</item>
     </string-array>
     <string-array name="codigoscomidas">
         <item>Pizza</item>
         <item>Ensalada</item>
         <item>Arroz</item>
-        <item>Espaguetti</item>
+        <item>Espagueti</item>
         <item>Especialidad</item>
     </string-array>
 </resources>
