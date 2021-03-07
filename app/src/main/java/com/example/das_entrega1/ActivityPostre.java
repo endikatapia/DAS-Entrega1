@@ -21,6 +21,7 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
     private String[] partesPlato;
     double precio;
     miBD gestorDB;
+    Intent intentVerPedido;
+    Button botonFinalizar;
 
     String[] datosPostre={"Profiteroles", "Tarta de queso", "Tiramisú", "Panna cotta"};
     int[] comidaPostre={R.drawable.profiteroles,R.drawable.tartaqueso,R.drawable.tiramisu,R.drawable.pannacotta};
@@ -54,6 +57,7 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
         setContentView(R.layout.activity_postre);
         listView=findViewById(R.id.lv);
 
+        botonFinalizar = (Button) findViewById(R.id.buttonFinalizar);
         //para guardar en la BD el pedido
         gestorDB = new miBD (this, "Pedidos", null, 1);
     }
@@ -112,6 +116,10 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
     //DIALOG
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void alpulsarFinalizar() {
+        //DESABILITAR BOTON tanto horizontal como vertical
+        botonFinalizar.setClickable(false);
+
+
         //PRIMERO GUARDAR EN EL FICHERO LOS POSTRES QUE ESTAN SELECCIONADOS
         //Coger los valores que se han seleccionado de las listView
         this.guardarEnElFichero();
@@ -125,10 +133,6 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
 
 
         //LANZAR LA NOTIFICACION DE QUE HA ACABADO EL PEDIDO Y DAR OPCION DE VOLVER A LA CARTA O VER EL PEDIDO
-        //fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_PRIVATE)); --> al darle a realizar otro pedido
-        //La otra opcion ver ultimo pedido --> recorrer desde la BD pedidos y mostralo en una nueva actividad
-
-
         NotificationManager elManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder elBuilder = new NotificationCompat.Builder(this, "IdCanal");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -144,13 +148,28 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
             elCanal.enableVibration(true);
         }
 
-        /*
-        Intent intent = new Intent(MainActivity.this,SegundaActividad.class);
-        intent.putExtra("id",1);
-        PendingIntent intentEnNot = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_PRIVATE)); --> al darle a realizar otro pedido
+        try {
+            //al darle a finalizar el fichero se vacia
+            fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_PRIVATE));
+            fichero.close();
+        }
+        catch  (IOException e) {
+            System.out.println("Error");
+        }
 
 
-         */
+        //INTENT PARA VOLVER A LA CARTA
+        Intent intentVolverCarta = new Intent(ActivityPostre.this,MainActivity.class);
+        //intentVolverCarta.putExtra("id",1);
+        PendingIntent intentEnNot = PendingIntent.getActivity(this, 0, intentVolverCarta, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //INTENT PARA VER EL PEDIDO
+        //La otra opcion ver ultimo pedido --> recorrer desde la BD pedidos y mostralo en una nueva actividad
+        //intentVolverCarta.putExtra("id",2);
+        PendingIntent intentEnNot2 = PendingIntent.getActivity(this, 1, intentVerPedido, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
 
         //configurar notificacion
         elBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.logorestaurante))
@@ -159,17 +178,16 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
                 .setContentText("HAS FINALIZADO TU PEDIDO")
                 .setSubText("Pedido finalizado")
                 .setVibrate(new long[]{0, 1000, 500, 1000})
-                .setAutoCancel(true);
-                //.addAction(android.R.drawable.ic_input_add,"Añadir",intentEnNot);
-        //.setContentIntent(intentEnNot);
+                .addAction(android.R.drawable.ic_input_add,"Volver a la carta",intentEnNot)
+                .addAction(android.R.drawable.ic_input_add,"Ver tu pedido", intentEnNot2)
+                .setAutoCancel(true); //cancelar la notificacion al dar click
+
 
         //lanzar notificacion
         elManager.notify(1, elBuilder.build());
 
 
 
-
-        //DESABILITAR BOTON
 
     }
 
@@ -212,10 +230,11 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
             System.out.println("Elementos pedidos:" + elementosPedidosSinRepeticion);
             System.out.println("PRECIO TOTAL: " +precioTotal);
 
-            //guardarlos en la BD
-            //SQLiteDatabase bd = gestorDB.getWritableDatabase();
-            //bd.execSQL("INSERT INTO Pedidos('ElementosPedidos','PrecioPedido') VALUES ('"+elementosPedidosSinRepeticion+"','"+precioTotal+"')");
+            intentVerPedido = new Intent(ActivityPostre.this,ActivityPedido.class);
+            intentVerPedido.putExtra("elementos",elementosPedidosSinRepeticion);
+            intentVerPedido.putExtra("precio",precioTotal);
 
+            //guardarlos en la BD
             gestorDB.guardarPedido(elementosPedidosSinRepeticion,precioTotal);
 
         }

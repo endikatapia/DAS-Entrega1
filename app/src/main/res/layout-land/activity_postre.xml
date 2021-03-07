@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/buttonFinalizar"
         android:layout_width="112dp"
         android:layout_height="98dp"
         android:layout_marginStart="20dp"
