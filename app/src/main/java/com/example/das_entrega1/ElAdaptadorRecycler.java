@@ -17,7 +17,6 @@ public class ElAdaptadorRecycler extends RecyclerView.Adapter<ElViewHolder> {
     private String[] losnombres;
     private int[] lasimagenes;
     private boolean[] seleccionados;
-    //SharedPreferences prefs;
 
     public ElAdaptadorRecycler (String[] nombres, int[] imagenes)
     {
@@ -32,7 +31,6 @@ public class ElAdaptadorRecycler extends RecyclerView.Adapter<ElViewHolder> {
         View elLayoutDeCadaItem= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout,null);
         ElViewHolder evh = new ElViewHolder(elLayoutDeCadaItem);
         evh.seleccion = seleccionados;
-        //prefs = PreferenceManager.getDefaultSharedPreferences(evh.itemView.getContext());
         return evh;
     }
 
@@ -40,20 +38,6 @@ public class ElAdaptadorRecycler extends RecyclerView.Adapter<ElViewHolder> {
     public void onBindViewHolder(@NonNull ElViewHolder holder, int position) {
         holder.eltexto.setText(losnombres[position]);
         holder.laimagen.setImageResource(lasimagenes[position]);
-        /*String comidaPref = prefs.getString("comidapref", "Pizza");
-        if (comidaPref.equals("Pizza")){
-            holder.laimagen.setImageResource(R.drawable.pizzaprefs);
-            //loscardviews[0].setCardBackgroundColor(Color.GREEN);
-        }
-        else if (comidaPref.equals("Ensalada")){
-            //loscardviews[1].setCardBackgroundColor(Color.GREEN);
-        }
-
-         */
-
-
-
-
 
     }
 

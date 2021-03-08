@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
     ElAdaptadorRecycler eladaptador;
     Spinner spin;
     int[] categorias;
+    String comidaPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,42 +74,42 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
 
         //Con preferencias
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String comidaPref = prefs.getString("comidapref", "Pizza");
-        if (comidaPref.equals("Pizza")){
-            //si la preferencia del cliente son las pizzas la imagen del cardView pizza se pondra con fondo verde
-            categorias= new int[]{R.drawable.pizzaprefs, R.drawable.ensalada, R.drawable.arrozz,R.drawable.esp, R.drawable.las};
-            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
-            lalista.setAdapter(eladaptador);
+        //String comidaPref = prefs.getString("comidapref", "Pizza");
+        if (prefs.contains("comidapref")) {
+            comidaPref = prefs.getString("comidapref", null);
+
+            if (comidaPref.equals("Pizza")) {
+                //si la preferencia del cliente son las pizzas la imagen del cardView pizza se pondra con fondo verde
+                categorias = new int[]{R.drawable.pizzaprefs, R.drawable.ensalada, R.drawable.arrozz, R.drawable.esp, R.drawable.las};
+                eladaptador = new ElAdaptadorRecycler(nombres, categorias);
+                lalista.setAdapter(eladaptador);
+            } else if (comidaPref.equals("Ensalada")) {
+                //si la preferencia del cliente son las ensaladas la imagen del cardView ensalada se pondra con fondo verde
+                categorias = new int[]{R.drawable.pizza, R.drawable.ensaladaprefs, R.drawable.arrozz, R.drawable.esp, R.drawable.las};
+                eladaptador = new ElAdaptadorRecycler(nombres, categorias);
+                lalista.setAdapter(eladaptador);
+            } else if (comidaPref.equals("Arroz")) {
+                //si la preferencia del cliente es el arroz la imagen del cardView arroz se pondra con fondo verde
+                categorias = new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozprefs, R.drawable.esp, R.drawable.las};
+                eladaptador = new ElAdaptadorRecycler(nombres, categorias);
+                lalista.setAdapter(eladaptador);
+            } else if (comidaPref.equals("Espagueti")) {
+                //si la preferencia del cliente son las espagueti la imagen del cardView espagueti se pondra con fondo verde
+                categorias = new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz, R.drawable.espprefs, R.drawable.las};
+                eladaptador = new ElAdaptadorRecycler(nombres, categorias);
+                lalista.setAdapter(eladaptador);
+            } else if (comidaPref.equals("Especialidad")) {
+                //si la preferencia del cliente es la especialidad la imagen del cardView especialidad se pondra con fondo verde
+                categorias = new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz, R.drawable.esp, R.drawable.lasprefs};
+                eladaptador = new ElAdaptadorRecycler(nombres, categorias);
+                lalista.setAdapter(eladaptador);
+            }
         }
-        else if (comidaPref.equals("Ensalada")){
-            //si la preferencia del cliente son las ensaladas la imagen del cardView ensalada se pondra con fondo verde
-            categorias= new int[]{R.drawable.pizza, R.drawable.ensaladaprefs, R.drawable.arrozz,R.drawable.esp, R.drawable.las};
-            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
-            lalista.setAdapter(eladaptador);
-        }
-        else if (comidaPref.equals("Arroz")){
-            //si la preferencia del cliente es el arroz la imagen del cardView arroz se pondra con fondo verde
-            categorias= new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozprefs,R.drawable.esp, R.drawable.las};
-            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
-            lalista.setAdapter(eladaptador);
-        }
-        else if (comidaPref.equals("Espagueti")){
-            //si la preferencia del cliente son las espagueti la imagen del cardView espagueti se pondra con fondo verde
-            categorias= new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz,R.drawable.espprefs, R.drawable.las};
-            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
-            lalista.setAdapter(eladaptador);
-        }
-        else if (comidaPref.equals("Especialidad")){
-            //si la preferencia del cliente es la especialidad la imagen del cardView especialidad se pondra con fondo verde
-            categorias= new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz,R.drawable.esp, R.drawable.lasprefs};
-            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
-            lalista.setAdapter(eladaptador);
-        }
-        else{
-            //Si no tiene ninguna preferencia se pondran toas con fondo normal
-            categorias = new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz, R.drawable.esp, R.drawable.las};
-            eladaptador = new ElAdaptadorRecycler(nombres,categorias);
-            lalista.setAdapter(eladaptador);
+        else {//if (comidaPref==null){ //Sin preferencias
+                //Si no tiene ninguna preferencia se pondran toas con fondo normal
+                categorias = new int[]{R.drawable.pizza, R.drawable.ensalada, R.drawable.arrozz, R.drawable.esp, R.drawable.las};
+                eladaptador = new ElAdaptadorRecycler(nombres, categorias);
+                lalista.setAdapter(eladaptador);
 
         }
 
