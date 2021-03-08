@@ -26,6 +26,12 @@ public class ActivityPreferencias extends AppCompatActivity {
     public void onClickGuardar(View v){
         //Al clickar guardar se establecen las nuevas preferencias y vamos a MainActivity
         Intent i = new Intent(this,MainActivity.class);
+        //recogemos el usuario desde MainActivity
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String user = extras.getString("usuario");
+            i.putExtra("usuario",user);
+        }
         i.putExtra("comidaPref",comidaPref);
         //startActivityForResult(i,123);  //Se definen códigos para distinguir distinta llamadas
         startActivity(i);

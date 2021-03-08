@@ -7,6 +7,11 @@
         android:title="Preferencias"
         app:showAsAction="never|withText" />
 
+    <item
+        android:id="@+id/opcion2"
+        android:title="Mas información"
+        app:showAsAction="never|withText" />
+
 
 
 

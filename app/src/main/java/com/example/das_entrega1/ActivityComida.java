@@ -62,6 +62,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
 
 
     OutputStreamWriter fichero;
+    TextView userr;
 
 
     @Override
@@ -69,6 +70,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comida);
         listView=findViewById(R.id.lv);
+        userr=findViewById(R.id.userr);
     }
 
 

@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements DialogoPostre.ListenerdelDialogo {
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
     Spinner spin;
     int[] categorias;
     String comidaPref;
+    String user;
+    TextView userr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +51,23 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
         setSupportActionBar(findViewById(R.id.toolbar));
 
         bienvenido= findViewById(R.id.textViewBienvenido);
+        userr = findViewById(R.id.userr);
 
 
-        //tratamos el nombre de usuario que viene de la otra aplicacion
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String user = extras.getString("usuario");
-            bienvenido.setText("Bienvenido: "+user);
-            bienvenido.setTypeface(null, Typeface.BOLD_ITALIC);
-        }
-
-
-        //cuando se rota que se guarde el nombre
+        //cuando rotas se mantiene el nombre
         if (savedInstanceState != null) {
-            String user = savedInstanceState.getString("user");
+            user = savedInstanceState.getString("usuario");
             System.out.println("Usuario: " + user);
-            bienvenido.setText(user);
-            bienvenido.setTypeface(null, Typeface.BOLD_ITALIC);
+            userr.setText(user);
+            userr.setTypeface(null, Typeface.BOLD_ITALIC);
+        }else{//tratamos el nombre de usuario que viene de la otra aplicacion
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                user = extras.getString("usuario");
+                userr.setText(user);
+                userr.setTypeface(null, Typeface.BOLD_ITALIC);
+            }
         }
-
 
 
         lalista = findViewById(R.id.rv);
@@ -122,9 +125,7 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
         //GRID LAYOUT
         GridLayoutManager elLayoutRejillaIgual= new GridLayoutManager(this,3,GridLayoutManager.VERTICAL,false);
         lalista.setLayoutManager(elLayoutRejillaIgual);
-
-
-         */
+       */
 
 
 
@@ -142,12 +143,15 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         if (position==0){
                             System.out.println("Castellano");
+                            //setLocale("es");
                         }
                         else if (position==1){
                             System.out.println("Ingles");
+                            //setLocale("en");
                         }
                         else if (position==2){
                             System.out.println("Italiano");
+                            //setLocale("it");
                         }
 
 
@@ -158,6 +162,24 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
 
 
 
+    } //final onCreate
+
+    //Localizacion
+    private void setLocale(String localizacion){
+
+        System.out.println(localizacion);
+
+        Locale locale = new Locale(localizacion);
+        Locale.setDefault(locale);
+        Configuration configuration = getBaseContext().getResources().getConfiguration();
+        configuration.setLocale(locale);
+        configuration.setLayoutDirection(locale);
+
+        Context context = getBaseContext().createConfigurationContext(configuration);
+        getBaseContext().getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+
+        //finish();
+        //startActivity(getIntent());
     }
 
 
@@ -167,8 +189,8 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        String user  = bienvenido.getText().toString();
-        outState.putString("user", user);
+        user  = userr.getText().toString();
+        outState.putString("usuario", user);
 
         /*
         TextView estados = findViewById(R.id.etiqueta2);
@@ -226,7 +248,18 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
             case R.id.opcion1: {
                 System.out.println("Preferencias");
                 Intent intentPreferencias = new Intent(MainActivity.this,ActivityPreferencias.class);
+                intentPreferencias.putExtra("usuario",user);
                 startActivity(intentPreferencias);
+
+
+                break;
+
+            }
+            case R.id.opcion2: {
+                //INTENT IMPLICITO --> ABRE EL NAVEGADOR para mas informacion sobre la comida italiana
+                System.out.println("Información sobre comida Italiana");
+                Intent intentInfo = new Intent(Intent.ACTION_VIEW, Uri.parse("https://blog.thefork.com/es/gastronomia-italia/"));
+                startActivity(intentInfo);
 
 
                 break;
@@ -235,5 +268,9 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 
 }

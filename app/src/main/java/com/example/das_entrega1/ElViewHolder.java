@@ -66,18 +66,8 @@ public class ElViewHolder extends RecyclerView.ViewHolder {
                     itemView.getContext().startActivity(i1);
                 }
 
-                /*
-                //Si esta seleccionado
-                if (seleccion[getAdapterPosition()] == true) {
-                    seleccion[getAdapterPosition()] = false;
-                    laimagen.setBackgroundColor(Color.WHITE);
 
-                } else { //Si no esta seleccionado
-                    seleccion[getAdapterPosition()] = true;
-                    laimagen.setBackgroundColor(Color.BLUE);
-                }
 
-                 */
             }
         });
 
