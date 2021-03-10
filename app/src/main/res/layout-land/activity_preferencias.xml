@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="onClickGuardar"
-        android:text="GUARDAR PREFERENCIAS"
+        android:text="@string/guardarPrefs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"

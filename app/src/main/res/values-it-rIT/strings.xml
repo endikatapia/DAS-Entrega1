@@ -2,4 +2,15 @@
 <resources>
     <string name="app_name">DAS_Entrega1</string>
     <string name="lacarta">Il Menù</string>
+    <string name="bienvenida">Benvenuto:</string>
+    <string name="continPedido">CONTINUA CON L\'ORDINE</string>
+    <string name="usuario">Utente</string>
+    <string name="contraseña">Password:</string>
+    <string name="login">ACCESSO</string>
+    <string name="añadiryvolver">AGGIUNGI ALL\'ORDINE E TORNA MENU</string>
+    <string name="finalizarPedido">ORDINE DI FINITURA</string>
+    <string name="guardarPrefs">" SALVA LE PREFERENZE"</string>
+    <string name="ultPedido">"Il tuo ultimo ordine "</string>
+    <string name="importe">Totale</string>
+    <string name="irCarta">VAI AL MENU</string>
 </resources>

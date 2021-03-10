@@ -52,6 +52,8 @@ public class DialogoLogin extends DialogFragment {
 
         //Al pulsar fuera o al dar al boton de atras no se cancela el dialogo
         setCancelable(false);
+        //para que al rotar el dialog no pete
+        setRetainInstance(true);
         return builder.create();
     }
 }

@@ -32,19 +32,33 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements DialogoPostre.ListenerdelDialogo {
 
-    String[] idiomas =  { "Castellano", "Ingles", "Italiano"};
     TextView bienvenido;
     RecyclerView lalista;
     ElAdaptadorRecycler eladaptador;
-    Spinner spin;
     int[] categorias;
     String comidaPref;
     String user;
     TextView userr;
+    SharedPreferences prefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //establecer idioma
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String idioma = prefs.getString("idiomapref", "es");
+        //establecer idioma
+        Locale nlocale = new Locale(idioma);
+        Locale.setDefault(nlocale);
+        Configuration configuration = getBaseContext().getResources().getConfiguration();
+        configuration.setLocale(nlocale);
+        configuration.setLayoutDirection(nlocale);
+
+        Context context = getBaseContext().createConfigurationContext(configuration);
+        getBaseContext().getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+
         setContentView(R.layout.activity_main);
 
 
@@ -76,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
         String[] nombres={"Pizzas", "Ensaladas", "Arroces", "Espagueti", "Especialidad"};
 
         //Con preferencias
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //String comidaPref = prefs.getString("comidapref", "Pizza");
         if (prefs.contains("comidapref")) {
             comidaPref = prefs.getString("comidapref", null);
@@ -128,60 +142,7 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
        */
 
 
-
-
-        //SPINNER IDIOMAS
-         spin= (Spinner) findViewById(R.id.idiomas);
-
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,idiomas);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        spin.setAdapter(aa);
-
-        spin.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if (position==0){
-                            System.out.println("Castellano");
-                            //setLocale("es");
-                        }
-                        else if (position==1){
-                            System.out.println("Ingles");
-                            //setLocale("en");
-                        }
-                        else if (position==2){
-                            System.out.println("Italiano");
-                            //setLocale("it");
-                        }
-
-
-                    }
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
-
-
-
     } //final onCreate
-
-    //Localizacion
-    private void setLocale(String localizacion){
-
-        System.out.println(localizacion);
-
-        Locale locale = new Locale(localizacion);
-        Locale.setDefault(locale);
-        Configuration configuration = getBaseContext().getResources().getConfiguration();
-        configuration.setLocale(locale);
-        configuration.setLayoutDirection(locale);
-
-        Context context = getBaseContext().createConfigurationContext(configuration);
-        getBaseContext().getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
-
-        //finish();
-        //startActivity(getIntent());
-    }
-
 
 
 
@@ -192,15 +153,15 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
         user  = userr.getText().toString();
         outState.putString("usuario", user);
 
-        /*
-        TextView estados = findViewById(R.id.etiqueta2);
-        outState.putString("estados",estados.getText().toString()+ "onDestroy\n");
 
+/*
         String localizacion = getResources().getConfiguration().locale.toLanguageTag();
         System.out.println("LOC" + localizacion);
         outState.putString("localizacion",localizacion);
 
-         */
+ */
+
+
 
     }
 

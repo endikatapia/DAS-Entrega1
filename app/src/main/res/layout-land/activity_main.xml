@@ -10,7 +10,7 @@
         android:id="@+id/textViewBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hola: "
+        android:text="@string/bienvenida"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -29,27 +29,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textViewBienvenido" />
-
-    <Spinner
-        android:id="@+id/idiomas"
-        android:layout_width="147dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="260dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="68dp"
-        android:text="Idioma:"
-        app:layout_constraintEnd_toStartOf="@+id/idiomas"
-        app:layout_constraintHorizontal_bias="0.841"
-        app:layout_constraintStart_toEndOf="@+id/textViewBienvenido"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -78,7 +57,7 @@
         android:layout_height="66dp"
         android:layout_marginEnd="84dp"
         android:onClick="onClickContinuar"
-        android:text="CONTINUAR CON EL PEDIDO"
+        android:text="@string/continPedido"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -28,11 +28,11 @@
 
     <Button
         android:id="@+id/buttonOnVolver"
-        android:layout_width="134dp"
-        android:layout_height="91dp"
+        android:layout_width="131dp"
+        android:layout_height="113dp"
         android:layout_marginTop="108dp"
         android:onClick="onClickAnadirYvolver"
-        android:text="AÑADIR AL PEDIDO Y VOLVER A LA CARTA"
+        android:text="@string/añadiryvolver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toEndOf="@+id/fragmentFotoIndv"

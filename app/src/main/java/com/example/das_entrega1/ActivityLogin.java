@@ -2,9 +2,12 @@ package com.example.das_entrega1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.preference.PreferenceManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Locale;
 
 public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.ListenerdelDialogo {
 
@@ -27,6 +31,21 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String idioma = prefs.getString("idiomapref", "es");
+        //establecer idioma
+        Locale nlocale = new Locale(idioma);
+        Locale.setDefault(nlocale);
+        Configuration configuration = getBaseContext().getResources().getConfiguration();
+        configuration.setLocale(nlocale);
+        configuration.setLayoutDirection(nlocale);
+
+        Context context = getBaseContext().createConfigurationContext(configuration);
+        getBaseContext().getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+
+
         setContentView(R.layout.activity_login);
 
 

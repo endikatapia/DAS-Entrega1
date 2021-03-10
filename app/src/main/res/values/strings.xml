@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">DAS_Entrega1</string>
     <string name="lacarta">La Carta</string>
+    <string name="bienvenida">Hola:</string>
+    <string name="continPedido">CONTINUAR CON EL PEDIDO</string>
+    <string name="usuario">Usuario:</string>
+    <string name="contraseña">Contraseña:</string>
+    <string name="login">INICIAR SESION</string>
+    <string name="añadiryvolver">AÑADIR AL PEDIDO Y VOLVER A LA CARTA</string>
+    <string name="finalizarPedido">FINALIZAR PEDIDO</string>
+    <string name="guardarPrefs">GUARDAR PREFERENCIAS</string>
+    <string name="ultPedido">Tu último pedido</string>
+    <string name="importe">Importe total</string>
+    <string name="irCarta">IR A LA CARTA</string>
 </resources>

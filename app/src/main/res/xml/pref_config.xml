@@ -12,6 +12,13 @@
             app:key="comidapref"
             app:summary="Elige tu comida preferida"
             app:title="¿Cual es tu comida preferida?" />
+        <ListPreference
+            app:dialogTitle="Elige tu idioma para la aplicación"
+            app:entries="@array/idiomas"
+            app:entryValues="@array/codigosidiomas"
+            app:key="idiomapref"
+            app:summary="Elige tu idioma preferido"
+            app:title="¿Cual es tu idioma preferido?" />
 
     </PreferenceCategory>
 </PreferenceScreen>
