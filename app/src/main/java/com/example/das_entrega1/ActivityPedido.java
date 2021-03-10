@@ -2,6 +2,7 @@ package com.example.das_entrega1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,13 @@ public class ActivityPedido extends AppCompatActivity {
             double precioT = extras.getDouble("precio");
             tvPrecio.setText(tvPrecio.getText()+": " + precioT + "€");
             }
+    }
+
+    public void onClickIrCarta(View v){
+        Intent intentVolverCarta = new Intent(ActivityPedido.this,MainActivity.class);
+        //Guardar lo que habia en MainActivity con el flag FLAG_ACTIVITY_REORDER_TO_FRONT
+        intentVolverCarta.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intentVolverCarta);
     }
 
 

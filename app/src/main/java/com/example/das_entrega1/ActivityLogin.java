@@ -88,6 +88,8 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
             //guardamos el usuario
             intentMainActivity.putExtra("usuario",user);
             startActivity(intentMainActivity);
+            //que la actividad empieze y no se pueda volver
+            //finish();
 
         }
 

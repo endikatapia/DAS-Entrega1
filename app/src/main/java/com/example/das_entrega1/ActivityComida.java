@@ -217,7 +217,14 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
             System.out.println("PLATO: " + comidas.get(z));
         }
         String platos = String.join(", ", comidas);
-        Toast.makeText(this,"Has añadido a tu pedido: "+platos,Toast.LENGTH_SHORT).show();
+
+        //si el string contiene al menos una letra, es decir, que se haya pedido un plato
+        if ( ! platos.isEmpty()) {
+            Toast.makeText(this,"Has añadido a tu pedido: "+platos,Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"No has añadido nada",Toast.LENGTH_SHORT).show();
+        }
+
 
 
 
@@ -267,7 +274,8 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
 
 
         Intent i2 = new Intent(ActivityComida.this,MainActivity.class);
-        //i2.putExtra("comidas",comidas);
+        //Guardar lo que habia en MainActivity con el flag FLAG_ACTIVITY_REORDER_TO_FRONT
+        i2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(i2);
 
 

@@ -10,11 +10,11 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
         android:text="Tu ultimo pedido"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,33 +22,36 @@
         android:id="@+id/textViewPrecio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="208dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="204dp"
         android:text="Importe total"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lv2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/lv2"
-        android:layout_width="390dp"
-        android:layout_height="330dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginBottom="77dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewPrecio"
+        android:layout_width="284dp"
+        android:layout_height="231dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.183"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="176dp"
         android:onClick="onClickIrCarta"
         android:text="IR A LA CARTA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lv2"
         app:layout_constraintTop_toBottomOf="@+id/textViewPrecio" />
 </androidx.constraintlayout.widget.ConstraintLayout>

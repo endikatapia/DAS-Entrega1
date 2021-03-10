@@ -159,10 +159,6 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
         }
 
 
-        //INTENT PARA VOLVER A LA CARTA
-        Intent intentVolverCarta = new Intent(ActivityPostre.this,MainActivity.class);
-        //intentVolverCarta.putExtra("id",1);
-        PendingIntent intentEnNot = PendingIntent.getActivity(this, 0, intentVolverCarta, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //INTENT PARA VER EL PEDIDO
         //La otra opcion ver ultimo pedido --> recorrer desde la BD pedidos y mostralo en una nueva actividad
@@ -178,7 +174,6 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
                 .setContentText("HAS FINALIZADO TU PEDIDO")
                 .setSubText("Pedido finalizado")
                 .setVibrate(new long[]{0, 1000, 500, 1000})
-                .addAction(android.R.drawable.ic_input_add,"Volver a la carta",intentEnNot)
                 .addAction(android.R.drawable.ic_input_add,"Ver tu pedido", intentEnNot2)
                 .setAutoCancel(true); //cancelar la notificacion al dar click
 
@@ -264,7 +259,13 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
             System.out.println("POSTRE: " + postres.get(z));
         }
         String postres_s = String.join(", ", postres);
-        Toast.makeText(this,"Has añadido a tu pedido: "+postres_s,Toast.LENGTH_SHORT).show();
+
+        //si el string contiene al menos una letra, es decir, que se haya pedido un plato
+        if ( ! postres_s.isEmpty()) {
+            Toast.makeText(this,"Has añadido a tu pedido: "+postres_s,Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"No has añadido ningún postre",Toast.LENGTH_SHORT).show();
+        }
 
         try {
             fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
