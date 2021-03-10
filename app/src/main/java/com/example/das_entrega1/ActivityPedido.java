@@ -2,6 +2,8 @@ package com.example.das_entrega1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +16,6 @@ import java.util.ArrayList;
 
 public class ActivityPedido extends AppCompatActivity {
 
-    TextView tvPedido;
     TextView tvPrecio;
     miBD gestorDB;
     private String[] partesPlato;
@@ -27,7 +28,9 @@ public class ActivityPedido extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido);
-        //tvPedido = (TextView) findViewById(R.id.textViewPedido);
+
+
+
         lv2 = findViewById(R.id.lv2);
         tvPrecio = (TextView) findViewById(R.id.textViewPrecio);
 
@@ -36,8 +39,12 @@ public class ActivityPedido extends AppCompatActivity {
 
         Bundle extras= getIntent().getExtras();
         if (extras != null){
-            //String elementos = extras.getString("elementos");
-            //tvPedido.setText(elementos);
+
+            //para cerrar la notificacion al pulsar ver pedido
+            int id=extras.getInt("id");
+            NotificationManager elManager = (NotificationManager)
+                    getSystemService(Context.NOTIFICATION_SERVICE);
+            elManager.cancel(id);
 
             String elementos = extras.getString("elementos");
             //partimos el string en cada plato

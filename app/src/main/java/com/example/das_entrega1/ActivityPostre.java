@@ -128,9 +128,6 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
         //GUARDAR EN LA DB EL INT PK AUTOINCREMENto idPedido, STRING DE ELEMENTOS PEDIDOS, double PRECIO TOTAL
         this.guardarEnLaBBDD();
 
-        //MIRAR LO DEL SALDO DEL CLIENTE??????
-
-
 
         //LANZAR LA NOTIFICACION DE QUE HA ACABADO EL PEDIDO Y DAR OPCION DE VOLVER A LA CARTA O VER EL PEDIDO
         NotificationManager elManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -161,8 +158,7 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
 
 
         //INTENT PARA VER EL PEDIDO
-        //La otra opcion ver ultimo pedido --> recorrer desde la BD pedidos y mostralo en una nueva actividad
-        //intentVolverCarta.putExtra("id",2);
+        //Opcion para ver el ultimo pedido --> mostralo en una nueva actividad
         PendingIntent intentEnNot2 = PendingIntent.getActivity(this, 1, intentVerPedido, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
@@ -174,7 +170,7 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
                 .setContentText("HAS FINALIZADO TU PEDIDO")
                 .setSubText("Pedido finalizado")
                 .setVibrate(new long[]{0, 1000, 500, 1000})
-                .addAction(android.R.drawable.ic_input_add,"Ver tu pedido", intentEnNot2)
+                .addAction(android.R.drawable.ic_menu_view,"Ver tu pedido", intentEnNot2)
                 .setAutoCancel(true); //cancelar la notificacion al dar click
 
 
@@ -228,6 +224,7 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
             intentVerPedido = new Intent(ActivityPostre.this,ActivityPedido.class);
             intentVerPedido.putExtra("elementos",elementosPedidosSinRepeticion);
             intentVerPedido.putExtra("precio",precioTotal);
+            intentVerPedido.putExtra("id",1);
 
             //guardarlos en la BD
             gestorDB.guardarPedido(elementosPedidosSinRepeticion,precioTotal);

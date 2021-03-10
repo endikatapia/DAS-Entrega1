@@ -74,54 +74,6 @@ public class ElViewHolder extends RecyclerView.ViewHolder {
 
 
 
-
-        /*
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i1 = new Intent(itemView.getContext(),ActivityPizza.class);
-                if(getAdapterPosition()==0) {
-                    i1.putExtra("categoria",0);
-                    itemView.getContext().startActivity(i1);
-                }else if (getAdapterPosition()==1) {
-                    i1.putExtra("categoria",1);
-                    itemView.getContext().startActivity(i1);
-                }
-                else if (getAdapterPosition()==2) {
-                    i1.putExtra("categoria",2);
-                    itemView.getContext().startActivity(i1);
-                }
-                else if (getAdapterPosition()==3) {
-                    i1.putExtra("categoria",3);
-                    itemView.getContext().startActivity(i1);
-                }
-                else if (getAdapterPosition()==4) {
-                    i1.putExtra("categoria",4);
-                    itemView.getContext().startActivity(i1);
-                }
-
-                /*
-                //Si esta seleccionado
-                if (seleccion[getAdapterPosition()] == true) {
-                    seleccion[getAdapterPosition()] = false;
-                    laimagen.setBackgroundColor(Color.WHITE);
-
-                } else { //Si no esta seleccionado
-                    seleccion[getAdapterPosition()] = true;
-                    laimagen.setBackgroundColor(Color.BLUE);
-                }
-
-                 *7
-            }
-        });
-
-*/
-
-
-
-
-
-
     }
 
 }

@@ -30,7 +30,8 @@ public class DialogoLogin extends DialogFragment {
         super.onCreateDialog(savedInstanceState);
 
         miListener =(ListenerdelDialogo) getActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //estilo de dialogo definido en styles.xml
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
         //recogemos el usuario que nos viene de parametro desde el constructor
         builder.setTitle("El usuario "+ usuario + " no existe");
         builder.setMessage("¿Deseas Registrarte?");

@@ -26,7 +26,8 @@ public class DialogoPostre extends DialogFragment {
         super.onCreateDialog(savedInstanceState);
 
         miListener =(ListenerdelDialogo) getActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //estilo de dialogo definido en styles.xml
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
         builder.setTitle("Continuar con el pedido");
         builder.setMessage("¿Desea ir a los Postres o se le ha olvidado pedir algo de la carta?");
         builder.setPositiveButton("!POSTRES!", new DialogInterface.OnClickListener() {

@@ -23,9 +23,9 @@ public class DialogoFinal extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
-
         miListener =(ListenerdelDialogo) getActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //estilo de dialogo definido en styles.xml
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
         builder.setTitle("Finalizar pedido");
         builder.setMessage("¿Desea finalizar el pedido o se le ha olvidado pedir algún postre?");
         builder.setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
