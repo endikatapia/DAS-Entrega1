@@ -231,6 +231,13 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
     }
 
 
+    //al pulsar atras que se minimize
+    @Override
+    public void onBackPressed() {
+        this.moveTaskToBack(true);
+    }
+
+
 
 
 

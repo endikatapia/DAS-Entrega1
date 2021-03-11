@@ -12,4 +12,6 @@
     <string name="ultPedido">Tu último pedido</string>
     <string name="importe">Importe total</string>
     <string name="irCarta">IR A LA CARTA</string>
+    <string name="ingredientes">"Ingredientes: "</string>
+    <string name="precio">"Precio: "</string>
 </resources>

@@ -13,4 +13,6 @@
     <string name="ultPedido">Your last order</string>
     <string name="importe">Total</string>
     <string name="irCarta">GO TO THE MENU</string>
+    <string name="ingredientes">"Ingredients: "</string>
+    <string name="precio">"Price: "</string>
 </resources>

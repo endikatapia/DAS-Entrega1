@@ -15,6 +15,9 @@ public class ActivityPreferencias extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //IDIOMA
+
         setContentView(R.layout.activity_preferencias);
 
         //Obtenemos las preferencias

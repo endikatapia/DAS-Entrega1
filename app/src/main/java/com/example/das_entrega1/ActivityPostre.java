@@ -4,12 +4,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.preference.PreferenceManager;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
@@ -31,6 +33,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class ActivityPostre extends AppCompatActivity implements FragmentLVMultipleChoice.listenerDelFragment,DialogoFinal.ListenerdelDialogo {
@@ -45,15 +48,45 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
     miBD gestorDB;
     Intent intentVerPedido;
     Button botonFinalizar;
+    private String[] datosPostre;
+    private String[] ingredientesPostre;
 
-    String[] datosPostre={"Profiteroles", "Tarta de queso", "Tiramisú", "Panna cotta"};
+    //String[] datosPostre={"Profiteroles", "Tarta de queso", "Tiramisú", "Panna cotta"};
     int[] comidaPostre={R.drawable.profiteroles,R.drawable.tartaqueso,R.drawable.tiramisu,R.drawable.pannacotta};
-    String[] ingredientesPostre={"leche, mantequilla, harina, huevos, limón, canela, azúcar","galletas, nata, azucar, queso, mermelada","queso mascarpone, yemas, azúcar glass, cacao en polvo, café fuerte","nata, azúcar, gelatina, vainilla, canela"};
+    //String[] ingredientesPostre={"leche, mantequilla, harina, huevos, limón, canela, azúcar","galletas, nata, azucar, queso, mermelada","queso mascarpone, yemas, azúcar glass, cacao en polvo, café fuerte","nata, azúcar, gelatina, vainilla, canela"};
     double[] preciosPostre = {5,4,6.5,6};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //establecer idioma
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String idioma = prefs.getString("idiomapref", "es");
+
+        Locale nlocale = new Locale(idioma);
+        Locale.setDefault(nlocale);
+        Configuration configuration = getBaseContext().getResources().getConfiguration();
+        configuration.setLocale(nlocale);
+        configuration.setLayoutDirection(nlocale);
+
+        Context context = getBaseContext().createConfigurationContext(configuration);
+        getBaseContext().getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+
+        if (idioma.equals("es")) {
+            datosPostre= new String[]{"Profiteroles", "Tarta de queso", "Tiramisú", "Panna cotta"};
+            ingredientesPostre= new String[]{"leche, mantequilla, harina, huevos, limón, canela, azúcar", "galletas, nata, azucar, queso, mermelada", "queso mascarpone, yemas, azúcar glass, cacao en polvo, café fuerte", "nata, azúcar, gelatina, vainilla, canela"};
+
+        } else if (idioma.equals("en")) {
+            datosPostre= new String[]{"Profiteroles", "Cheesecake", "Tiramisu", "Panna cotta"};
+            ingredientesPostre= new String[]{"milk, butter, flour, eggs, lemon, cinnamon, sugar", "cookies, cream, sugar, cheese, jam", "mascarpone cheese, yolks, icing sugar, cocoa powder, strong coffee", "cream, sugar, gelatin, vanilla, cinnamon"};
+
+        } else if (idioma.equals("it")) {
+            datosPostre= new String[]{"Profiteroles", "Cheesecake", "Tiramisu", "Panna cotta"};
+            ingredientesPostre= new String[]{"latte, burro, farina, uova, limone, cannella, zucchero", "biscotti, panna, zucchero, formaggio, marmellata", "mascarpone, tuorli, zucchero a velo, cacao in polvere, caffè forte", "panna, zucchero, gelatina , vaniglia, cannella"};
+
+        }
+
         setContentView(R.layout.activity_postre);
         listView=findViewById(R.id.lv);
 
@@ -267,9 +300,10 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
         try {
             fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
             for (int z=0;z<postres.size();z++) {
+
                 if (postres.get(z).equals("Profiteroles")){ precio= 5; }
-                else if (postres.get(z).equals("Tarta de queso")){ precio=4; }
-                else if (postres.get(z).equals("Tiramisú")){ precio=6.50; }
+                else if (postres.get(z).equals("Tarta de queso") || postres.get(z).equals("Cheesecake")){ precio=4; }
+                else if (postres.get(z).equals("Tiramisú") || postres.get(z).equals("Tiramisu")){ precio=6.50; }
                 else if (postres.get(z).equals("Panna cotta")){ precio=6; }
 
 
@@ -280,6 +314,12 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
             System.out.println("Error escribiendo el fichero");
         }
 
+    }
+
+    //al pulsar atras que se minimize
+    @Override
+    public void onBackPressed() {
+        this.moveTaskToBack(true);
     }
 
 
