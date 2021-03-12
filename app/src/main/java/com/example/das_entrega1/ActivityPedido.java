@@ -48,6 +48,40 @@ public class ActivityPedido extends AppCompatActivity {
 
         setContentView(R.layout.activity_pedido);
 
+        String p2 = getString(R.string.pizza2);
+        String p4 = getString(R.string.pizza4);
+        String p5 = getString(R.string.pizza5);
+        String p6 = getString(R.string.pizza6);
+        String p8 = getString(R.string.pizza8);
+
+        String sad1 = getString(R.string.ensalada1);
+        String sad2 = getString(R.string.ensalada2);
+        String sad3 = getString(R.string.ensalada3);
+        String sad4 = getString(R.string.ensalada4);
+        String sad5 = getString(R.string.ensalada5);
+        String sad6 = getString(R.string.ensalada6);
+
+        String ar1 = getString(R.string.arroz1);
+        String ar2 = getString(R.string.arroz2);
+        String ar3 = getString(R.string.arroz3);
+
+        String espa1 = getString(R.string.espagueti1);
+        String espa2 = getString(R.string.espagueti2);
+        String espa3 = getString(R.string.espagueti3);
+        String espa4 = getString(R.string.espagueti4);
+        String espa5 = getString(R.string.espagueti5);
+
+        String spc1 = getString(R.string.especialidad1);
+        String spc2 = getString(R.string.especialidad2);
+        String spc4 = getString(R.string.especialidad4);
+        String spc5 = getString(R.string.especialidad5);
+
+        String pst2 = getString(R.string.postre2);
+        String pst3 = getString(R.string.postre3);
+
+
+
+
 
 
         lv2 = findViewById(R.id.lv2);
@@ -72,41 +106,92 @@ public class ActivityPedido extends AppCompatActivity {
             for (int i=0; i<partesPlato.length;i++){
                 System.out.println("Plato:" + partesPlato[i]);
                 if (partesPlato[i].equals("Pizza Margarita")){ precio= 10; }
-                else if (partesPlato[i].equals("Pizza Boloñesa") || partesPlato[i].equals("Pizza Bolognese")){ precio=13.50; }
+                else if (partesPlato[i].equals("Pizza Boloñesa")){
+                    partesPlato[i]=p2; //depende en el idioma que estemos
+                    precio=13.50; }
                 else if (partesPlato[i].equals("Pizza Carbonara")){ precio=13.50; }
-                else if (partesPlato[i].equals("Pizza 4 Quesos") || partesPlato[i].equals("Pizza 4 Cheese") || partesPlato[i].equals("Pizza 4 Formaggi")){ precio=12.50; }
-                else if (partesPlato[i].equals("Pizza Napolitana") || partesPlato[i].equals("Pizza Neapolitan") || partesPlato[i].equals("Pizza Napoletana")){ precio=11.50; }
-                else if (partesPlato[i].equals("Pizza Atun") || partesPlato[i].equals("Pizza Tuna") || partesPlato[i].equals("Pizza Tonno")){ precio=12.50; }
+                else if (partesPlato[i].equals("Pizza 4 Quesos")){
+                    partesPlato[i]=p4;
+                    precio=12.50; }
+                else if (partesPlato[i].equals("Pizza Napolitana")){
+                    partesPlato[i]=p5;
+                    precio=11.50; }
+                else if (partesPlato[i].equals("Pizza Atun")){
+                    partesPlato[i]=p6;
+                    precio=12.50; }
                 else if (partesPlato[i].equals("Pizza Sorrento")){ precio=13; }
-                else if (partesPlato[i].equals("Pizza Tropical") || partesPlato[i].equals("Pizza Tropicale")){ precio=13.50; }
+                else if (partesPlato[i].equals("Pizza Tropical")){
+                    partesPlato[i]=p8;
+                    precio=13.50; }
 
-                else if (partesPlato[i].equals("Ensalada Mixta") || partesPlato[i].equals("Mixed Salad") || partesPlato[i].equals("Insalata Mista")){ precio=7; }
-                else if (partesPlato[i].equals("Ensalada Tropical") || partesPlato[i].equals("Tropical Salad") || partesPlato[i].equals("Insalata Tropicale")){ precio=9; }
-                else if (partesPlato[i].equals("Ensalada de Pasta") || partesPlato[i].equals("Pasta Salad") || partesPlato[i].equals("Insalata di Pasta")){ precio=9; }
-                else if (partesPlato[i].equals("Ensalada Campera") || partesPlato[i].equals("Country Salad") || partesPlato[i].equals("Insalata Country")){ precio=10; }
-                else if (partesPlato[i].equals("Ensalada Capresse") || partesPlato[i].equals("Capresse Salad") || partesPlato[i].equals("Insalata Capresse")){ precio=9; }
-                else if (partesPlato[i].equals("Ensalada Fruti di mare") || partesPlato[i].equals("Fruti di mare Salad") || partesPlato[i].equals("Insalata Fruti di Mare")){ precio=9.5; }
+                else if (partesPlato[i].equals("Ensalada Mixta")){
+                    partesPlato[i]=sad1;
+                    precio=7; }
+                else if (partesPlato[i].equals("Ensalada Tropical")){
+                    partesPlato[i]=sad2;
+                    precio=9; }
+                else if (partesPlato[i].equals("Ensalada de Pasta")){
+                    partesPlato[i]=sad3;
+                    precio=9; }
+                else if (partesPlato[i].equals("Ensalada Campera")){
+                    partesPlato[i]=sad4;
+                    precio=10; }
+                else if (partesPlato[i].equals("Ensalada Capresse")){
+                    partesPlato[i]=sad5;
+                    precio=9; }
+                else if (partesPlato[i].equals("Ensalada Fruti di mare")){
+                    partesPlato[i]=sad6;
+                    precio=9.5; }
 
-                else if (partesPlato[i].equals("Risotto de Setas") || partesPlato[i].equals("Mushroom Risotto") || partesPlato[i].equals("Risotto ai funghi")){ precio=10; }
-                else if (partesPlato[i].equals("Risotto Marinero") || partesPlato[i].equals("Sailor Risotto") || partesPlato[i].equals("Risotto alla marinara")){ precio=10; }
-                else if (partesPlato[i].equals("Risotto 4 Quesos") || partesPlato[i].equals("4 Cheese Risotto") || partesPlato[i].equals("Risotto ai 4 formaggi")){ precio=11; }
+                else if (partesPlato[i].equals("Risotto de Setas")){
+                    partesPlato[i]=ar1;
+                    precio=10; }
+                else if (partesPlato[i].equals("Risotto Marinero")){
+                    partesPlato[i]=ar2;
+                    precio=10; }
+                else if (partesPlato[i].equals("Risotto 4 Quesos")){
+                    partesPlato[i]=ar3;
+                    precio=11; }
 
-                else if (partesPlato[i].equals("Espagueti al Pesto") || partesPlato[i].equals("Spaghetti with Pesto") || partesPlato[i].equals("Spaghetti al Pesto")){ precio=9; }
-                else if (partesPlato[i].equals("Espagueti Boloñesa") || partesPlato[i].equals("Spaghetti Bolognese") || partesPlato[i].equals("Spaghetti alla Bolognese")){ precio=9; }
-                else if (partesPlato[i].equals("Espagueti Carbonara") || partesPlato[i].equals("Spaghetti Carbonara") || partesPlato[i].equals("Spaghetti alla Carbonara")){ precio=9; }
-                else if (partesPlato[i].equals("Espagueti Siciliana") || partesPlato[i].equals("Sicilian Spaghetti") || partesPlato[i].equals("Spaghetti Siciliani")){ precio=10; }
-                else if (partesPlato[i].equals("Espagueti con Gambas") || partesPlato[i].equals("Spaghetti with Prawns") || partesPlato[i].equals("Spaghetti ai Gamberi")){ precio=11; }
+                else if (partesPlato[i].equals("Espagueti al Pesto")){
+                    partesPlato[i]=espa1;
+                    precio=9; }
+                else if (partesPlato[i].equals("Espagueti Boloñesa")){
+                    partesPlato[i]=espa2;
+                    precio=9; }
+                else if (partesPlato[i].equals("Espagueti Carbonara")){
+                    partesPlato[i]=espa3;
+                    precio=9; }
+                else if (partesPlato[i].equals("Espagueti Siciliana")){
+                    partesPlato[i]=espa4;
+                    precio=10; }
+                else if (partesPlato[i].equals("Espagueti con Gambas")){
+                    partesPlato[i]=espa5;
+                    precio=11; }
 
-                else if (partesPlato[i].equals("Lasagna de Carne") || partesPlato[i].equals("Meat Lasagna") || partesPlato[i].equals("Lasagna di carne")){ precio=10.5; }
-                else if (partesPlato[i].equals("Ravioli de Setas") || partesPlato[i].equals("Mushroom Ravioli") || partesPlato[i].equals("Ravioli ai funghi")){ precio=11; }
+                else if (partesPlato[i].equals("Lasagna de Carne")){
+                    partesPlato[i]=spc1;
+                    precio=10.5; }
+                else if (partesPlato[i].equals("Ravioli de Setas")){
+                    partesPlato[i]=spc2;
+                    precio=11; }
                 else if (partesPlato[i].equals("Tagliatelle al Andrea")){ precio=10; }
-                else if (partesPlato[i].equals("Carpaccio de Carne") || partesPlato[i].equals("Meat Carpaccio") || partesPlato[i].equals("Carpaccio di carne")){ precio=12; }
-                else if (partesPlato[i].equals("Provolone a la Plancha") || partesPlato[i].equals("Grilled Provolone") || partesPlato[i].equals("Provolone alla griglia")){ precio=9; }
+                else if (partesPlato[i].equals("Carpaccio de Carne")){
+                    partesPlato[i]=spc4;
+                    precio=12; }
+                else if (partesPlato[i].equals("Provolone a la Plancha")){
+                    partesPlato[i]=spc5;
+                    precio=9; }
 
                 else if (partesPlato[i].equals("Profiteroles")){ precio= 5; }
-                else if (partesPlato[i].equals("Tarta de queso") || partesPlato[i].equals("Cheesecake")){ precio=4; }
-                else if (partesPlato[i].equals("Tiramisú") || partesPlato[i].equals("Tiramisu")){ precio=6.50; }
+                else if (partesPlato[i].equals("Tarta de queso")){
+                    partesPlato[i]=pst2;
+                    precio=4; }
+                else if (partesPlato[i].equals("Tiramisú")){
+                    partesPlato[i]=pst3;
+                    precio=6.50; }
                 else if (partesPlato[i].equals("Panna cotta")){ precio=6;}
+
                 precios.add(precio);
             }
 
@@ -119,7 +204,8 @@ public class ActivityPedido extends AppCompatActivity {
                     //linea principal poner el plato
                     lineaprincipal.setText(partesPlato[position]);
                     //secundaria el precio
-                    lineasecundaria.setText("Precio: " + String.valueOf(precios.get(position)) + "€");
+                    String pr = getString(R.string.precio);
+                    lineasecundaria.setText(pr + String.valueOf(precios.get(position)) + "€");
 
                     return vista;
                 }

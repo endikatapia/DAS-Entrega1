@@ -87,7 +87,12 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
         lalista = findViewById(R.id.rv);
 
 
-        String[] nombres={"Pizzas", "Ensaladas", "Arroces", "Espagueti", "Especialidad"};
+        String piz = getString(R.string.pizzas);
+        String ens = getString(R.string.ensaladas);
+        String ar = getString(R.string.arroces);
+        String espa = getString(R.string.espaguetis);
+        String espec = getString(R.string.especialidad);
+        String[] nombres={piz, ens, ar, espa, espec};
 
         //Con preferencias
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -207,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
         int id = item.getItemId();
         switch (id) {
             case R.id.opcion1: {
-                System.out.println("Preferencias");
+                System.out.println("Ajustes");
                 Intent intentPreferencias = new Intent(MainActivity.this,ActivityPreferencias.class);
                 intentPreferencias.putExtra("usuario",user);
                 startActivity(intentPreferencias);

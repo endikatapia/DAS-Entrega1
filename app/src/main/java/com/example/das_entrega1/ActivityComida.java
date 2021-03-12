@@ -292,6 +292,31 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
                 if (checkedItems.valueAt(i)) {
                     String item = listView.getAdapter().getItem(checkedItems.keyAt(i)).toString();
                     Log.i("TAG",item + " was selected");
+                    //guardamos los valores(string) en castellano para facilitar
+                    if (item.equals("Pizza Bolognese")){ item="Pizza Boloñesa"; }
+                    else if (item.equals("Pizza 4 Cheese") || item.equals("Pizza 4 Formaggi")){ item="Pizza 4 Quesos"; }
+                    else if (item.equals("Pizza Neapolitan") || item.equals("Pizza Napoletana")){ item="Pizza Napolitana"; }
+                    else if (item.equals("Pizza Tuna") || item.equals("Pizza Tonno")){ item="Pizza Atun"; }
+                    else if (item.equals("Pizza Tropicale")){ item="Pizza Tropical"; }
+                    else if (item.equals("Mixed Salad") || item.equals("Insalata Mista")){ item="Ensalada Mixta"; }
+                    else if (item.equals("Tropical Salad") || item.equals("Insalata Tropicale")){ item="Ensalada Tropical"; }
+                    else if (item.equals("Pasta Salad") || item.equals("Insalata di Pasta")){ item="Ensalada de Pasta"; }
+                    else if (item.equals("Country Salad") || item.equals("Insalata Country")){ item="Ensalada Campera"; }
+                    else if (item.equals("Capresse Salad") || item.equals("Insalata Capresse")){ item="Ensalada Capresse"; }
+                    else if (item.equals("Fruti di mare Salad") || item.equals("Insalata Fruti di Mare")){ item="Ensalada Fruti di mare"; }
+                    else if (item.equals("Mushroom Risotto") || item.equals("Risotto ai funghi")){ item="Risotto de Setas"; }
+                    else if (item.equals("Sailor Risotto") || item.equals("Risotto alla marinara")){ item="Risotto Marinero"; }
+                    else if (item.equals("4 Cheese Risotto") || item.equals("Risotto ai 4 formaggi")){ item="Risotto 4 Quesos"; }
+                    else if (item.equals("Spaghetti with Pesto") || item.equals("Spaghetti al Pesto")){ item="Espagueti al Pesto"; }
+                    else if (item.equals("Spaghetti Bolognese") || item.equals("Spaghetti alla Bolognese")){ item="Espagueti Boloñesa"; }
+                    else if (item.equals("Spaghetti Carbonara") || item.equals("Spaghetti alla Carbonara")){ item="Espagueti Carbonara"; }
+                    else if (item.equals("Sicilian Spaghetti") || item.equals("Spaghetti Siciliani")){ item="Espagueti Siciliana"; }
+                    else if (item.equals("Spaghetti with Prawns") || item.equals("Spaghetti ai Gamberi")){ item="Espagueti con Gambas"; }
+                    else if (item.equals("Meat Lasagna") || item.equals("Lasagna di carne")){ item="Lasagna de Carne"; }
+                    else if (item.equals("Mushroom Ravioli") || item.equals("Ravioli ai funghi")){ item="Ravioli de Setas"; }
+                    else if (item.equals("Meat Carpaccio") || item.equals("Carpaccio di carne")){ item="Carpaccio de Carne"; }
+                    else if (item.equals("Grilled Provolone") || item.equals("Provolone alla griglia")){ item="Provolone a la Plancha"; }
+
                     //añadirlos a el arraylist
                     comidas.add(item);
                 }
@@ -306,10 +331,13 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
 
         //si el string contiene al menos una letra, es decir, que se haya pedido un plato
         if ( ! platos.isEmpty()) {
-            Toast.makeText(this,"Has añadido a tu pedido: "+platos,Toast.LENGTH_SHORT).show();
+            String aped = getString(R.string.añaped);
+            Toast.makeText(this,aped+platos,Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this,"No has añadido nada",Toast.LENGTH_SHORT).show();
+            String naped = getString(R.string.noañaped);
+            Toast.makeText(this,naped,Toast.LENGTH_SHORT).show();
         }
+
 
 
 
@@ -320,37 +348,38 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
         try {
             fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
             for (int z=0;z<comidas.size();z++) {
+                //guardamos el precio y el idioma en castellano para luego leerlo mas facilmente
                 if (comidas.get(z).equals("Pizza Margarita")){ precio= 10; }
-                else if (comidas.get(z).equals("Pizza Boloñesa")  || comidas.get(z).equals("Pizza Bolognese")){ precio=13.50; }
+                else if (comidas.get(z).equals("Pizza Boloñesa")){ precio=13.50; }
                 else if (comidas.get(z).equals("Pizza Carbonara")){ precio=13.50; }
-                else if (comidas.get(z).equals("Pizza 4 Quesos") || comidas.get(z).equals("Pizza 4 Cheese") || comidas.get(z).equals("Pizza 4 Formaggi")){ precio=12.50; }
-                else if (comidas.get(z).equals("Pizza Napolitana") || comidas.get(z).equals("Pizza Neapolitan") || comidas.get(z).equals("Pizza Napoletana")){ precio=11.50; }
-                else if (comidas.get(z).equals("Pizza Atun") || comidas.get(z).equals("Pizza Tuna") || comidas.get(z).equals("Pizza Tonno")){ precio=12.50; }
+                else if (comidas.get(z).equals("Pizza 4 Quesos")){ precio=12.50; }
+                else if (comidas.get(z).equals("Pizza Napolitana")){ precio=11.50; }
+                else if (comidas.get(z).equals("Pizza Atun")){ precio=12.50; }
                 else if (comidas.get(z).equals("Pizza Sorrento")){ precio=13; }
-                else if (comidas.get(z).equals("Pizza Tropical") || comidas.get(z).equals("Pizza Tropicale")){ precio=13.50; }
+                else if (comidas.get(z).equals("Pizza Tropical")){ precio=13.50; }
 
-                else if (comidas.get(z).equals("Ensalada Mixta") || comidas.get(z).equals("Mixed Salad") || comidas.get(z).equals("Insalata Mista")){ precio=7; }
-                else if (comidas.get(z).equals("Ensalada Tropical") || comidas.get(z).equals("Tropical Salad") || comidas.get(z).equals("Insalata Tropicale")){ precio=9; }
-                else if (comidas.get(z).equals("Ensalada de Pasta") || comidas.get(z).equals("Pasta Salad") || comidas.get(z).equals("Insalata di Pasta")){ precio=9; }
-                else if (comidas.get(z).equals("Ensalada Campera") || comidas.get(z).equals("Country Salad") || comidas.get(z).equals("Insalata Country")){ precio=10; }
-                else if (comidas.get(z).equals("Ensalada Capresse") || comidas.get(z).equals("Capresse Salad") || comidas.get(z).equals("Insalata Capresse")){ precio=9; }
-                else if (comidas.get(z).equals("Ensalada Fruti di mare") || comidas.get(z).equals("Fruti di mare Salad") || comidas.get(z).equals("Insalata Fruti di Mare")){ precio=9.5; }
+                else if (comidas.get(z).equals("Ensalada Mixta")){ precio=7; }
+                else if (comidas.get(z).equals("Ensalada Tropical")){ precio=9; }
+                else if (comidas.get(z).equals("Ensalada de Pasta")){ precio=9; }
+                else if (comidas.get(z).equals("Ensalada Campera")){ precio=10; }
+                else if (comidas.get(z).equals("Ensalada Capresse")){ precio=9; }
+                else if (comidas.get(z).equals("Ensalada Fruti di mare")){ precio=9.5; }
 
-                else if (comidas.get(z).equals("Risotto de Setas") || comidas.get(z).equals("Mushroom Risotto") || comidas.get(z).equals("Risotto ai funghi")){ precio=10; }
-                else if (comidas.get(z).equals("Risotto Marinero") || comidas.get(z).equals("Sailor Risotto") || comidas.get(z).equals("Risotto alla marinara")){ precio=10; }
-                else if (comidas.get(z).equals("Risotto 4 Quesos") || comidas.get(z).equals("4 Cheese Risotto") || comidas.get(z).equals("Risotto ai 4 formaggi")){ precio=11; }
+                else if (comidas.get(z).equals("Risotto de Setas")){ precio=10; }
+                else if (comidas.get(z).equals("Risotto Marinero")){ precio=10; }
+                else if (comidas.get(z).equals("Risotto 4 Quesos")){ precio=11; }
 
-                else if (comidas.get(z).equals("Espagueti al Pesto") || comidas.get(z).equals("Spaghetti with Pesto") || comidas.get(z).equals("Spaghetti al Pesto")){ precio=9; }
-                else if (comidas.get(z).equals("Espagueti Boloñesa") || comidas.get(z).equals("Spaghetti Bolognese") || comidas.get(z).equals("Spaghetti alla Bolognese")){ precio=9; }
-                else if (comidas.get(z).equals("Espagueti Carbonara") || comidas.get(z).equals("Spaghetti Carbonara") || comidas.get(z).equals("Spaghetti alla Carbonara")){ precio=9; }
-                else if (comidas.get(z).equals("Espagueti Siciliana") || comidas.get(z).equals("Sicilian Spaghetti") || comidas.get(z).equals("Spaghetti Siciliani")){ precio=10; }
-                else if (comidas.get(z).equals("Espagueti con Gambas") || comidas.get(z).equals("Spaghetti with Prawns") || comidas.get(z).equals("Spaghetti ai Gamberi")){ precio=11; }
+                else if (comidas.get(z).equals("Espagueti al Pesto")){ precio=9; }
+                else if (comidas.get(z).equals("Espagueti Boloñesa")){ precio=9; }
+                else if (comidas.get(z).equals("Espagueti Carbonara")){ precio=9; }
+                else if (comidas.get(z).equals("Espagueti Siciliana")){ precio=10; }
+                else if (comidas.get(z).equals("Espagueti con Gambas")){ precio=11; }
 
-                else if (comidas.get(z).equals("Lasagna de Carne") || comidas.get(z).equals("Meat Lasagna") || comidas.get(z).equals("Lasagna di carne")){ precio=10.5; }
-                else if (comidas.get(z).equals("Ravioli de Setas") || comidas.get(z).equals("Mushroom Ravioli") || comidas.get(z).equals("Ravioli ai funghi")){ precio=11; }
+                else if (comidas.get(z).equals("Lasagna de Carne")){ precio=10.5; }
+                else if (comidas.get(z).equals("Ravioli de Setas")){ precio=11; }
                 else if (comidas.get(z).equals("Tagliatelle al Andrea")){ precio=10; }
-                else if (comidas.get(z).equals("Carpaccio de Carne") || comidas.get(z).equals("Meat Carpaccio") || comidas.get(z).equals("Carpaccio di carne")){ precio=12; }
-                else if (comidas.get(z).equals("Provolone a la Plancha") || comidas.get(z).equals("Grilled Provolone") || comidas.get(z).equals("Provolone alla griglia")){ precio=9; }
+                else if (comidas.get(z).equals("Carpaccio de Carne")){ precio=12; }
+                else if (comidas.get(z).equals("Provolone a la Plancha")){ precio=9; }
 
 
                 fichero.write(comidas.get(z)+"; Precio: "+ precio +System.lineSeparator());

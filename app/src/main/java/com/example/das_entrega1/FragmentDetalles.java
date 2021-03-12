@@ -40,10 +40,12 @@ public class FragmentDetalles extends Fragment {
         imagen.setImageResource(imageCode);
 
         TextView ing= getView().findViewById(R.id.ingredientes);
-        ing.setText("Ingredientes: " + ingredientes);
+        String in = getString(R.string.ingredientes);
+        ing.setText(in + ingredientes);
 
         TextView precios= getView().findViewById(R.id.precios);
-        precios.setText("Precio: " + precio + "€");
+        String pr = getString(R.string.precio);
+        precios.setText(pr + precio + "€");
 
     }
 

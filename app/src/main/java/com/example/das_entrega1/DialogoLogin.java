@@ -31,11 +31,17 @@ public class DialogoLogin extends DialogFragment {
 
         miListener =(ListenerdelDialogo) getActivity();
         //estilo de dialogo definido en styles.xml
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
+        //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         //recogemos el usuario que nos viene de parametro desde el constructor
-        builder.setTitle("El usuario "+ usuario + " no existe");
-        builder.setMessage("¿Deseas Registrarte?");
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        String usudialogo = getString(R.string.usudialogo);
+        String noexiste = getString(R.string.noexiste);
+        String registro = getString(R.string.registrar);
+        String si = getString(R.string.si);
+        String no = getString(R.string.no);
+        builder.setTitle(usudialogo + usuario + noexiste);
+        builder.setMessage(registro);
+        builder.setPositiveButton(si, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Lo gestiona la actividad ActivityLogin
@@ -43,7 +49,7 @@ public class DialogoLogin extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Al pulsar NO no hace nada

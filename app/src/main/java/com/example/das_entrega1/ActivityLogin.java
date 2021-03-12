@@ -87,7 +87,8 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
             //el usuario y la contraseña deben contener al menos un caracter
             if (user.matches("") || password.matches("") ) {
                 System.out.println("La Contraseña o el Usuario debe tener al menos 1 caracter");
-                Toast.makeText(ActivityLogin.this,"El usuario o la Contraseña deben tener al menos 1 caracter",Toast.LENGTH_SHORT).show();
+                String almenos1caracter = getString(R.string.almenos1caracter);
+                Toast.makeText(ActivityLogin.this,almenos1caracter,Toast.LENGTH_SHORT).show();
             }
             else{
                 DialogFragment df = new DialogoLogin(user);
@@ -98,7 +99,9 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
         //Si la ha metido mal lanzamos un Toast avisandole de que ha introducido mal la contraseña
         else if (estaEnBD && !contraseñaCorrecta){
             System.out.println("El usuario "+ user +" existe pero la contraseña es incorrecta");
-            Toast.makeText(ActivityLogin.this,"El ususario "+ usuario.getText().toString()+" existe, PERO la Contraseña es incorrecta",Toast.LENGTH_SHORT).show();
+            String usudialogo = getString(R.string.usudialogo);
+            String existePero = getString(R.string.existePero);
+            Toast.makeText(ActivityLogin.this,usudialogo+ usuario.getText().toString()+ existePero,Toast.LENGTH_SHORT).show();
         }
         //Sino intent a MainActivity (a la carta)
         else if (estaEnBD && contraseñaCorrecta) {

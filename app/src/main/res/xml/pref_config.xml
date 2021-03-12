@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
         app:key="cat_datos_personales"
-        app:title="Preferencias">
+        app:title="@string/prefs">
 
         <ListPreference
-            app:dialogTitle="Elige tu comida favorita"
+            app:dialogTitle="@string/eligeComida"
             app:entries="@array/comidas"
             app:entryValues="@array/codigoscomidas"
             app:key="comidapref"
-            app:summary="Elige tu comida preferida"
-            app:title="¿Cual es tu comida preferida?" />
+            app:summary="@string/eligeComida"
+            app:title="@string/pregComida" />
         <ListPreference
-            app:dialogTitle="Elige tu idioma para la aplicación"
+            app:dialogTitle="@string/eligeIdioma"
             app:entries="@array/idiomas"
             app:entryValues="@array/codigosidiomas"
             app:key="idiomapref"
-            app:summary="Elige tu idioma preferido"
-            app:title="¿Cual es tu idioma preferido?" />
+            app:summary="@string/eligeIdioma"
+            app:title="@string/pregIdioma" />
 
     </PreferenceCategory>
 </PreferenceScreen>

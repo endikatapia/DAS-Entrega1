@@ -25,10 +25,15 @@ public class DialogoFinal extends DialogFragment {
         super.onCreateDialog(savedInstanceState);
         miListener =(ListenerdelDialogo) getActivity();
         //estilo de dialogo definido en styles.xml
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
-        builder.setTitle("Finalizar pedido");
-        builder.setMessage("¿Desea finalizar el pedido o se le ha olvidado pedir algún postre?");
-        builder.setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
+        //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        String fin = getString(R.string.finPedido);
+        String pof = getString(R.string.finOpostre);
+        String finzar = getString(R.string.finzar);
+        String vps = getString(R.string.volverPostres);
+        builder.setTitle(fin);
+        builder.setMessage(pof);
+        builder.setPositiveButton(finzar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 miListener.alpulsarFinalizar();
@@ -36,7 +41,7 @@ public class DialogoFinal extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton("Volver a los postres", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(vps, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

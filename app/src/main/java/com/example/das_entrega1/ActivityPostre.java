@@ -196,14 +196,17 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
 
 
 
+        String fp = getString(R.string.hasfin);
+        String pf = getString(R.string.pedfinn);
+        String vtp = getString(R.string.verpedi);
         //configurar notificacion
         elBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.logorestaurante))
                 .setSmallIcon(android.R.drawable.stat_sys_warning)
                 .setContentTitle("Ristorante Endika")
-                .setContentText("HAS FINALIZADO TU PEDIDO")
-                .setSubText("Pedido finalizado")
+                .setContentText(fp)
+                .setSubText(pf)
                 .setVibrate(new long[]{0, 1000, 500, 1000})
-                .addAction(android.R.drawable.ic_menu_view,"Ver tu pedido", intentEnNot2)
+                .addAction(android.R.drawable.ic_menu_view,vtp, intentEnNot2)
                 .setAutoCancel(true); //cancelar la notificacion al dar click
 
 
@@ -278,6 +281,12 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
                 if (checkedItems.valueAt(i)) {
                     String item = listView.getAdapter().getItem(checkedItems.keyAt(i)).toString();
                     Log.i("TAG",item + " was selected");
+                    if (item.equals("Cheesecake")){ item="Tarta de queso"; }
+                    else if (item.equals("Tiramisú")){ item="Tiramisu"; }
+
+
+
+
                     //añadirlos a el arraylist
                     postres.add(item);
                 }
@@ -292,9 +301,11 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
 
         //si el string contiene al menos una letra, es decir, que se haya pedido un plato
         if ( ! postres_s.isEmpty()) {
-            Toast.makeText(this,"Has añadido a tu pedido: "+postres_s,Toast.LENGTH_SHORT).show();
+            String aped = getString(R.string.añaped);
+            Toast.makeText(this,aped+postres_s,Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this,"No has añadido ningún postre",Toast.LENGTH_SHORT).show();
+            String npostre = getString(R.string.nopostre);
+            Toast.makeText(this,npostre,Toast.LENGTH_SHORT).show();
         }
 
         try {
@@ -302,8 +313,8 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
             for (int z=0;z<postres.size();z++) {
 
                 if (postres.get(z).equals("Profiteroles")){ precio= 5; }
-                else if (postres.get(z).equals("Tarta de queso") || postres.get(z).equals("Cheesecake")){ precio=4; }
-                else if (postres.get(z).equals("Tiramisú") || postres.get(z).equals("Tiramisu")){ precio=6.50; }
+                else if (postres.get(z).equals("Tarta de queso")){ precio=4; }
+                else if (postres.get(z).equals("Tiramisú")){ precio=6.50; }
                 else if (postres.get(z).equals("Panna cotta")){ precio=6; }
 
 
@@ -316,11 +327,14 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
 
     }
 
+    /*
     //al pulsar atras que se minimize
     @Override
     public void onBackPressed() {
         this.moveTaskToBack(true);
     }
+
+     */
 
 
 }

@@ -27,10 +27,15 @@ public class DialogoPostre extends DialogFragment {
 
         miListener =(ListenerdelDialogo) getActivity();
         //estilo de dialogo definido en styles.xml
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
-        builder.setTitle("Continuar con el pedido");
-        builder.setMessage("¿Desea ir a los Postres o se le ha olvidado pedir algo de la carta?");
-        builder.setPositiveButton("!POSTRES!", new DialogInterface.OnClickListener() {
+        //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        String cp = getString(R.string.continuarPedido);
+        String poc = getString(R.string.postreOcarta);
+        String pos = getString(R.string.postres);
+        String vc = getString(R.string.volverCarta);
+        builder.setTitle(cp);
+        builder.setMessage(poc);
+        builder.setPositiveButton(pos, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 miListener.alpulsarSi();
@@ -38,7 +43,7 @@ public class DialogoPostre extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton("Volver a la carta", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(vc, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
