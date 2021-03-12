@@ -9,9 +9,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -88,7 +92,22 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
             if (user.matches("") || password.matches("") ) {
                 System.out.println("La Contraseña o el Usuario debe tener al menos 1 caracter");
                 String almenos1caracter = getString(R.string.almenos1caracter);
-                Toast.makeText(ActivityLogin.this,almenos1caracter,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ActivityLogin.this,almenos1caracter,Toast.LENGTH_SHORT).show();
+
+                //TOAST PERSONALIZADO
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.layout_toast, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+                TextView text = (TextView) layout.findViewById(R.id.text);
+                text.setText(almenos1caracter);
+
+                Toast toast = new Toast(this);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setView(layout);
+                toast.show();
+
+
+
             }
             else{
                 DialogFragment df = new DialogoLogin(user);
@@ -101,7 +120,19 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
             System.out.println("El usuario "+ user +" existe pero la contraseña es incorrecta");
             String usudialogo = getString(R.string.usudialogo);
             String existePero = getString(R.string.existePero);
-            Toast.makeText(ActivityLogin.this,usudialogo+ usuario.getText().toString()+ existePero,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ActivityLogin.this,usudialogo+ usuario.getText().toString()+ existePero,Toast.LENGTH_SHORT).show();
+
+            //TOAST PERSONALIZADO
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.layout_toast, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            text.setText(usudialogo+ usuario.getText().toString()+ existePero);
+
+            Toast toast = new Toast(this);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }
         //Sino intent a MainActivity (a la carta)
         else if (estaEnBD && contraseñaCorrecta) {
@@ -124,7 +155,21 @@ public class ActivityLogin extends AppCompatActivity implements  DialogoLogin.Li
     public void alpulsarSi(){
         //insertar al usuario en la BBDD pasandole de parametros el usuario y la contraseña
         gestorDB.insertarEnLaBBDD(usuario.getText().toString(),contraseña.getText().toString());
-        Toast.makeText(ActivityLogin.this,usuario.getText().toString()+" añadido",Toast.LENGTH_SHORT).show();
+        String añad = getString(R.string.aña);
+        //Toast.makeText(ActivityLogin.this,usuario.getText().toString()+añad,Toast.LENGTH_SHORT).show();
+
+        //TOAST PERSONALIZADO
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_toast, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        text.setText(usuario.getText().toString()+añad);
+
+        Toast toast = new Toast(this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
     }
 
 

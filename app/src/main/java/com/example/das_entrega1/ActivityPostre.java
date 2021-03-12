@@ -20,11 +20,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -302,10 +305,34 @@ public class ActivityPostre extends AppCompatActivity implements FragmentLVMulti
         //si el string contiene al menos una letra, es decir, que se haya pedido un plato
         if ( ! postres_s.isEmpty()) {
             String aped = getString(R.string.añaped);
-            Toast.makeText(this,aped+postres_s,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,aped+postres_s,Toast.LENGTH_SHORT).show();
+
+            //TOAST PERSONALIZADO
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.layout_toast, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            text.setText(aped+postres_s);
+
+            Toast toast = new Toast(this);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }else{
             String npostre = getString(R.string.nopostre);
-            Toast.makeText(this,npostre,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,npostre,Toast.LENGTH_SHORT).show();
+
+            //TOAST PERSONALIZADO
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.layout_toast, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            text.setText(npostre);
+
+            Toast toast = new Toast(this);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }
 
         try {

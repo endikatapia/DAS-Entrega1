@@ -73,13 +73,13 @@ public class MainActivity extends AppCompatActivity implements DialogoPostre.Lis
             user = savedInstanceState.getString("usuario");
             System.out.println("Usuario: " + user);
             userr.setText(user);
-            userr.setTypeface(null, Typeface.BOLD_ITALIC);
+            userr.setTypeface(null, Typeface.BOLD);
         }else{//tratamos el nombre de usuario que viene de la otra aplicacion
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 user = extras.getString("usuario");
                 userr.setText(user);
-                userr.setTypeface(null, Typeface.BOLD_ITALIC);
+                userr.setTypeface(null, Typeface.BOLD);
             }
         }
 

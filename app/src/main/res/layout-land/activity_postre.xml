@@ -9,31 +9,28 @@
     <fragment
         android:id="@+id/fragmentLista"
         android:name="com.example.das_entrega1.FragmentLVMultipleChoice"
-        android:layout_width="225dp"
-        android:layout_height="246dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="72dp" />
 
     <fragment
         android:id="@+id/fragmentFotoIndv"
         android:name="com.example.das_entrega1.FragmentDetalles"
-        android:layout_width="224dp"
-        android:layout_height="240dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="265dp"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toEndOf="@+id/fragmentLista"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="80dp" />
 
     <Button
         android:id="@+id/buttonFinalizar"
-        android:layout_width="112dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="156dp"
+        style="@style/FuenteDASParaButton"
+        android:layout_width="103dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="18dp"
         android:onClick="onClickFinalizar"
         android:text="@string/finalizarPedido"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fragmentFotoIndv"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

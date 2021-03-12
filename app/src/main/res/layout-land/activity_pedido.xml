@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/textView6"
+        style="@style/FuenteDASParaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -20,14 +21,14 @@
 
     <TextView
         android:id="@+id/textViewPrecio"
+        style="@style/FuenteDASParaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="204dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="228dp"
         android:text="@string/importe"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lv2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,10 +44,11 @@
 
     <Button
         android:id="@+id/button4"
+        style="@style/FuenteDASParaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="46dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="37dp"
         android:layout_marginEnd="176dp"
         android:onClick="onClickIrCarta"
         android:text="@string/irCarta"

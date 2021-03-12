@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/nombre"
+        style="@style/FuenteDASParaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/imagenV"
@@ -29,6 +30,7 @@
 
     <TextView
         android:id="@+id/ingredientes"
+        style="@style/FuenteDASParaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -40,6 +42,7 @@
 
     <TextView
         android:id="@+id/precios"
+        style="@style/FuenteDASParaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

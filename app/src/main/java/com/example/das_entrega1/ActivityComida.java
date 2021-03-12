@@ -12,7 +12,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -332,10 +334,34 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
         //si el string contiene al menos una letra, es decir, que se haya pedido un plato
         if ( ! platos.isEmpty()) {
             String aped = getString(R.string.añaped);
-            Toast.makeText(this,aped+platos,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,aped+platos,Toast.LENGTH_SHORT).show();
+
+            //TOAST PERSONALIZADO
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.layout_toast, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            text.setText(aped+platos);
+
+            Toast toast = new Toast(this);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }else{
             String naped = getString(R.string.noañaped);
-            Toast.makeText(this,naped,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,naped,Toast.LENGTH_SHORT).show();
+
+            //TOAST PERSONALIZADO
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.layout_toast, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            text.setText(naped);
+
+            Toast toast = new Toast(this);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
         }
 
 
