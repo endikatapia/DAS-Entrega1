@@ -16,7 +16,7 @@ public class ActivityDetalles extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //establecer idioma
+        //establecer idioma seleccionado en las preferencias (por defecto: castellano)
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String idioma = prefs.getString("idiomapref", "es");
 
@@ -30,6 +30,9 @@ public class ActivityDetalles extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
         setContentView(R.layout.activity_detalles);
 
+        //ActivityDetalles contiene el otro fragment (fragmentFotoInd) definido en activity_detalles.xml,
+        //Recogemos los datos del intent, enlazamos el fragment y ejecutamos su método de actualización setDatos
+        //Esos datos se actualizan en FragmentDetalles
         FragmentDetalles elotro = (FragmentDetalles) getSupportFragmentManager().findFragmentById(R.id.fragmentFotoIndv);
         String plato=getIntent().getStringExtra("nombre");
         int imagen = getIntent().getIntExtra("imagen",0);

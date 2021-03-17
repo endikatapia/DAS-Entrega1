@@ -11,11 +11,11 @@
         style="@style/FuenteDASParaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:text="@string/ultPedido"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.253"
+        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,9 +24,9 @@
         style="@style/FuenteDASParaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="228dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="360dp"
         android:text="@string/importe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lv2"
@@ -34,11 +34,10 @@
 
     <ListView
         android:id="@+id/lv2"
-        android:layout_width="284dp"
-        android:layout_height="231dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
+        android:layout_width="248dp"
+        android:layout_height="237dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -47,13 +46,15 @@
         style="@style/FuenteDASParaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="176dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="324dp"
         android:onClick="onClickIrCarta"
         android:text="@string/irCarta"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lv2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPrecio" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrecio"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

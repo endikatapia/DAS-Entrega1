@@ -33,7 +33,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
     ListView listView;
     ArrayAdapter eladaptador;
     ArrayList<String> comidas = new ArrayList<>();
-    double precio;
+    private double precio;
     private String[] datosPizza;
     private String[] ingredientesPizza;
     private String[] datosEnsalada;
@@ -46,36 +46,24 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
     private String[] ingredientesEspecialidad;
 
 
-
-
     //DATOS PIZZA(CATEGORIA 0)
-    //String[] datosPizza={"Pizza Margarita", "Pizza Boloñesa", "Pizza Carbonara", "Pizza 4 Quesos","Pizza Napolitana","Pizza Atun","Pizza Sorrento","Pizza Tropical"};
     int[] comidaPizza={R.drawable.pizzamargarita,R.drawable.pizzabolognesa,R.drawable.pizzacarbonara,R.drawable.pizza4quesos,R.drawable.pizzanapolitana,R.drawable.pizzaatun,R.drawable.pizzasorrento,R.drawable.pizzatropical};
-    //String[] ingredientesPizza={"mozzarella, tomate","mozzarella, orégano, salsa bolognesa","mozzarella, tomate, beicon, huevo, cebolla","tomate, orégano, 4 quesos","mozzarella, tomate, orégano, anchoas, aceitunas","mozzarella, tomate, orégano, atún","jamón serrano, tomate, rúcula, láminas de parmesano","mozzarella, tomate, orégano, jamón, piña"};
     double[] preciosPizza = {10,13.50,13.50,12.50,11.50,12.50,13,13.50};
 
     //DATOS ENSALADA(CATEGORIA 1)
-    //String[] datosEnsalada={"Ensalada Mixta", "Ensalada Tropical", "Ensalada de Pasta","Ensalada Campera","Ensalada Capresse","Ensalada Fruti di mare"};
     int[] comidaEnsalada={R.drawable.ensaladamixta,R.drawable.ensaladatropical,R.drawable.ensaladapasta,R.drawable.ensaladacampera,R.drawable.ensaladacapresse,R.drawable.ensaladafdmare};
-    //String[] ingredientesEnsalada={"atún, espárragos, cebolla, tomate, lechuga","piña, manzana, maíz, tomate, lechuga, jamón, salsa rosa","pasta, atún, maíz, aceitunas, cebolla, salsa rosa","patata, maíz, nueces, lechuga, salsa rosa","mozzarella de búfala, tomate, orégano, aceitunas, alcaparras","mejillones, gambas, palitos de cangrejo, tomate, lechuga y salsa rosa"};
     double[] preciosEnsalada = {7,9,9,10,9,9.5};
 
     //DATOS ARROZ(CATEGORIA 2)
-    //String[] datosArroz={"Risotto de Setas","Risotto Marinero","Risotto 4 Quesos"};
     int[] comidaArroz={R.drawable.arrozsetas,R.drawable.risottomarinero,R.drawable.risotto4quesos};
-    //String[] ingredientesArroz={"caldo de pollo, arroz carnaroli, setas funghi, cebolla, rucula","arroz arborio, cebolla, caldo de pescado, mejillones, calamar, cáscara de limón","arroz bomba, gorgonzola, gouda, chedar, parmesano"};
     double[] preciosArroz = {10,10,11};
 
     //DATOS ESPAGUETI(CATEGORIA 3)
-    //String[] datosEspagueti={"Espagueti al Pesto","Espagueti Boloñesa","Espagueti Carbonara","Espagueti Siciliana","Espagueti con Gambas"};
     int[] comidaEspagueti={R.drawable.espaguetipesto,R.drawable.espaguetibolonesa,R.drawable.espagueticarbonara,R.drawable.espaguetisicilia,R.drawable.espaguetigambas};
-    //String[] ingredientesEspagueti={"espagueti, albahaca, parmesano, piñones","salsa bolognesa, parmesano","nata, bacon, parmesano, huevo","anchoas, alcaparras, aceitunas, salsa de tomate","gambas, ajo, picante"};
     double[] preciosEspagueti = {9,9,9,10,11};
 
     //DATOS ESPECIALIDAD(CATEGORIA 4)
-    //String[] datosEspecialidad={"Lasagna de Carne","Ravioli de Setas","Tagliatelle al Andrea","Carpaccio de Carne","Provolone a la Plancha"};
     int[] comidaEspecialidad={R.drawable.lasagnacarne,R.drawable.raviolisetas,R.drawable.tagliatele,R.drawable.carpaccocarne,R.drawable.provolone};
-    //String[] ingredientesEspecialidad={"carne picada, placas de canelón, salsa de tomate, cebolla, queso en lonchas, leche","harina de trigo, huevos, setas frescas, cebolla","nata, jamón serrano, espinacas, queso ricotta","solomillo de ternera, alcaparras, queso Parmesano, mostaza en grano","queso provolone, tomate, orégano seco, albahaca fresca"};
     double[] preciosEspecialidad = {10.50,11,10,12,9};
 
 
@@ -87,7 +75,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //establecer idioma
+        //establecer idioma seleccionado en las preferencias (por defecto: castellano)
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String idioma = prefs.getString("idiomapref", "es");
 
@@ -101,7 +89,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
         getBaseContext().getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
 
 
-
+        //Si el idioma es castellano (es) cargar los fragments con los datos en castellano
         if (idioma.equals("es")) {
             datosPizza = new String[]{"Pizza Margarita", "Pizza Boloñesa", "Pizza Carbonara", "Pizza 4 Quesos", "Pizza Napolitana", "Pizza Atun", "Pizza Sorrento", "Pizza Tropical"};
             ingredientesPizza = new String[]{"mozzarella, tomate", "mozzarella, orégano, salsa bolognesa", "mozzarella, tomate, beicon, huevo, cebolla", "tomate, orégano, 4 quesos", "mozzarella, tomate, orégano, anchoas, aceitunas", "mozzarella, tomate, orégano, atún", "jamón serrano, tomate, rúcula, láminas de parmesano", "mozzarella, tomate, orégano, jamón, piña"};
@@ -118,7 +106,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
             datosEspecialidad= new String[]{"Lasagna de Carne", "Ravioli de Setas", "Tagliatelle al Andrea", "Carpaccio de Carne", "Provolone a la Plancha"};
             ingredientesEspecialidad= new String[]{"carne picada, placas de canelón, salsa de tomate, cebolla, queso en lonchas, leche", "harina de trigo, huevos, setas frescas, cebolla", "nata, jamón serrano, espinacas, queso ricotta", "solomillo de ternera, alcaparras, queso Parmesano, mostaza en grano", "queso provolone, tomate, orégano seco, albahaca fresca"};
 
-
+        //Si el idioma es ingles (en) cargar los fragments con los datos en ingles
         } else if (idioma.equals("en")){
             datosPizza = new String[]{"Pizza Margarita", "Pizza Bolognese", "Pizza Carbonara", "Pizza 4 Cheese", "Pizza Neapolitan", "Pizza Tuna", "Pizza Sorrento", "Pizza Tropical"};
             ingredientesPizza = new String[]{"mozzarella, tomato", "mozzarella, oregano, bolognese sauce", "mozzarella, tomato, bacon, egg, onion", "tomato, oregano, 4 cheeses", "mozzarella, tomato, oregano, anchovies, olives", "mozzarella, tomato, oregano, tuna","serrano ham, tomato, arugula, parmesan slices","mozzarella, tomato, oregano, ham, pineapple"};
@@ -135,7 +123,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
             datosEspecialidad= new String[]{"Meat Lasagna", "Mushroom Ravioli", "Tagliatelle al Andrea", "Meat Carpaccio", "Grilled Provolone"};
             ingredientesEspecialidad= new String[]{"minced meat, cannelloni plates, tomato sauce, onion, sliced cheese, milk", "wheat flour, eggs, fresh mushrooms, onion", "cream, serrano ham, spinach, ricotta cheese", "beef tenderloin, capers, Parmesan cheese, grain mustard","provolone cheese, tomato, dried oregano, fresh basil"};
 
-
+        //Si el idioma es italiano (it) cargar los fragments con los datos en italiano
         } else if (idioma.equals("it")){
             datosPizza = new String[]{"Pizza Margarita", "Pizza Bolognese", "Pizza Carbonara", "Pizza 4 Formaggi", "Pizza Napoletana", "Pizza Tonno", "Pizza Sorrento", "Pizza Tropicale"};
             ingredientesPizza = new String[]{"mozzarella, pomodoro", "mozzarella, origano, ragù alla bolognese", "mozzarella, pomodoro, pancetta, uovo, cipolla", "pomodoro, origano, 4 formaggi", "mozzarella, pomodoro, origano, acciughe, olive", "mozzarella, pomodoro, origano, tonno","prosciutto serrano, pomodoro, rucola, scaglie di parmigiano","mozzarella, pomodoro, origano, prosciutto, ananas"};
@@ -154,34 +142,35 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
 
         }
 
-
-
         setContentView(R.layout.activity_comida);
         listView=findViewById(R.id.lv);
         userr=findViewById(R.id.userr);
-    }
+
+    } //final onCreate
 
 
-
+    //este metodo sera el encargado de poner la lista segun la categoria que reciba de ElViewHolder mediante el intent.
+    //Si el usuario clicka en el cardView de las pizzas (categoria 0) se cargara el fragment con los datos de la pizza.
     public void ponerLista(){
-
+        //recogemos la informacion que viene desde ElViewHolder
         Bundle extras= getIntent().getExtras();
         if (extras != null){
             int categoria = extras.getInt("categoria");
-            if (categoria==0){
-                //PIZZA
-                //Creamos el ArrayAdapter con la posibilidad de elegir mas de un item
+            if (categoria==0){ //Si la categoria recibida es 0 --> PIZZA
+                //Se genera un adaptador y se le indican qué datos debe mostrar (datosPizza)
+                //y cómo debe mostrarlos (simple_list_item_multiple_choice)
+                //Creamos el ArrayAdapter con la posibilidad de elegir mas de un item --> simple_list_item_multiple_choice
                 eladaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,datosPizza);
                 listView.setAdapter(eladaptador);
 
-                //cuando clickamos en un item se selecciona el checkbox y nos sale informacion acerca de el plato
+                //Se añade un listener para indicar qué hacer cuando se seleccione algún elemento del ListView:
+                //cuando clickamos en un item se selecciona el checkbox y nos sale informacion acerca del plato
                 //se gestiona en la función seleccionarElemento de esta misma clase
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                         seleccionarElemento(datosPizza[position],comidaPizza[position],ingredientesPizza[position],preciosPizza[position]);
                         System.out.println(datosPizza[position]);
-                        //comidas.add(datos[position]);
                     }
                 });
 
@@ -189,7 +178,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
             }
 
             else if (categoria==1){
-                //ENSALADA
+                //Si la categoria recibida es 1 --> ENSALADA
                 eladaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,datosEnsalada);
                 listView.setAdapter(eladaptador);
 
@@ -203,7 +192,7 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
             }
 
             else if (categoria==2){
-                //ARROZ
+                //Si la categoria recibida es 2 --> ARROZ
                 eladaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,datosArroz);
                 listView.setAdapter(eladaptador);
 
@@ -212,13 +201,12 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                         seleccionarElemento(datosArroz[position],comidaArroz[position],ingredientesArroz[position],preciosArroz[position]);
                         System.out.println(datosArroz[position]);
-                        //comidas.add(datos3[position]);
                     }
                 });
             }
 
             else if (categoria==3){
-                //ESPAGUETI
+                //Si la categoria recibida es 3 --> ESPAGUETI
                 eladaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,datosEspagueti);
                 listView.setAdapter(eladaptador);
 
@@ -227,14 +215,13 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                         seleccionarElemento(datosEspagueti[position],comidaEspagueti[position],ingredientesEspagueti[position],preciosEspagueti[position]);
                         System.out.println(datosEspagueti[position]);
-                        //comidas.add(datos4[position]);
                     }
                 });
             }
 
 
             else if (categoria==4){
-                //ESPECIALIDAD
+                //Si la categoria recibida es 4 --> ESPECIALIDAD
                 eladaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,datosEspecialidad);
                 listView.setAdapter(eladaptador);
 
@@ -243,31 +230,37 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                         seleccionarElemento(datosEspecialidad[position],comidaEspecialidad[position],ingredientesEspecialidad[position],preciosEspecialidad[position]);
                         System.out.println(datosEspecialidad[position]);
-                        //comidas.add(datos5[position]);
 
                     }
                 });
             }
 
 
-
-
         }
-    }
+    } //final ponerLista
+
 
 
     public void seleccionarElemento(String nombreComida, int imagen, String ingredientes,double precio){
         int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
-            //EL OTRO FRAGMENT EXISTE
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE){ //Si el teléfono está en apaisado: actualizar FragmentDetalles
+            //EL OTRO FRAGMENT EXISTE --> por lo tanto si la orientacion es horizontal se cargara el land/activity_comida.xml
+            //enseñando en la parte derecha el fragment con la listView multiple_choice, en el medio los detalles acerca de
+            //los platos que seleccionemos y en la izquierda el boton para añadir al pedido los platos seleccionados.
             System.out.println("-------------HORIZONTAL---------");
             FragmentDetalles elotro=(FragmentDetalles) getSupportFragmentManager().findFragmentById(R.id.fragmentFotoIndv);
+            //FragmentDetalles se encargara de cargar y visualizar los datos mediante el metodo setDatos.
+            //Como parametro le pasaremos el nombre del plato, la imagen, los ingredientes y el precio
             elotro.setDatos(nombreComida,imagen,ingredientes,precio);
         }
         else{
-            //EL OTRO FRAGMENT NO EXISTE, HAY QUE LANZAR LA ACTIVIDAD QUE LO CONTIENE
+            //EL OTRO FRAGMENT NO EXISTE, HAY QUE LANZAR LA ACTIVIDAD QUE LO CONTIENE -->
+            //estando en layout/activity_comida.xml(vertical) se lanza la actividad ActivityDetalles.
+            //enseñara los detalles en esa actividad mediante el Fragment fragmentdetalles.xml
             System.out.println("-------------VERTICAL---------");
 
+            //Cuando se cree esa actividad guardamos en el intent los 4 parametros necesarios
+            //para enseñar toda la informacion del plato
             Intent i= new Intent(ActivityComida.this,ActivityDetalles.class);
             i.putExtra("nombre",nombreComida);
             i.putExtra("imagen",imagen);
@@ -276,25 +269,23 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
             startActivity(i);
         }
 
-
     }
 
 
-
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    //Cuando se pulse el Boton Añadir y Volver a la carta
+    @RequiresApi(api = Build.VERSION_CODES.O) //para hacer String.join es necesario esta linea
     public void onClickAnadirYvolver(View v){
         //https://stackoverflow.com/questions/3996938/why-is-listview-getcheckeditempositions-not-returning-correct-values
-        //Coger los valores que se han seleccionado de las listView
+        //Coger los valores que se han seleccionado de la listView con multiple choice
+        //Para ello en el layout hay que poner la opcion android:choiceMode="multipleChoice"
         SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
-        if (checkedItems != null) {
-            for (int i=0; i<checkedItems.size(); i++) {
-                if (checkedItems.valueAt(i)) {
-                    String item = listView.getAdapter().getItem(checkedItems.keyAt(i)).toString();
+        if (checkedItems != null) { //Si hay algun elemento seleccionado
+            for (int i=0; i<checkedItems.size(); i++) { //los recorremos
+                if (checkedItems.valueAt(i)) { //si esta seleccionado el elemento de esta posicion
+                    String item = listView.getAdapter().getItem(checkedItems.keyAt(i)).toString(); //guardar el nombre del plato (item)
                     Log.i("TAG",item + " was selected");
-                    //guardamos los valores(string) en castellano para facilitar
+                    //guardamos los valores(string) en castellano para facilitar las operaciones con el fichero
+                    //Por lo tanto si el valor que lee esta en ingles o en italiano guardara es item en castellano
                     if (item.equals("Pizza Bolognese")){ item="Pizza Boloñesa"; }
                     else if (item.equals("Pizza 4 Cheese") || item.equals("Pizza 4 Formaggi")){ item="Pizza 4 Quesos"; }
                     else if (item.equals("Pizza Neapolitan") || item.equals("Pizza Napoletana")){ item="Pizza Napolitana"; }
@@ -319,22 +310,24 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
                     else if (item.equals("Meat Carpaccio") || item.equals("Carpaccio di carne")){ item="Carpaccio de Carne"; }
                     else if (item.equals("Grilled Provolone") || item.equals("Provolone alla griglia")){ item="Provolone a la Plancha"; }
 
-                    //añadirlos a el arraylist
+                    //Se añaden los item seleccionados a el ArrayList<String> comidas
                     comidas.add(item);
                 }
             }
         }
 
-        //ver los platos seleccionados del arraylist
+        //Ver los platos seleccionados del arraylist
         for (int z=0;z<comidas.size();z++) {
             System.out.println("PLATO: " + comidas.get(z));
         }
+        //Guardar en un unico string las comidas del ArrayList. P.e --> Pizza Boloñesa, Rissoto 4 Quesos, Lasagna de Carne
+        //mediante el metodo de String "join".
         String platos = String.join(", ", comidas);
 
         //si el string contiene al menos una letra, es decir, que se haya pedido un plato
+        //Se enseña un toast con los platos añadidos al pedido
         if ( ! platos.isEmpty()) {
             String aped = getString(R.string.añaped);
-            //Toast.makeText(this,aped+platos,Toast.LENGTH_SHORT).show();
 
             //TOAST PERSONALIZADO
             LayoutInflater inflater = getLayoutInflater();
@@ -348,8 +341,8 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
             toast.setView(layout);
             toast.show();
         }else{
+            //Si no ha pedido nada y le da al boton se enseña un toast diciendo que no ha pedido nada
             String naped = getString(R.string.noañaped);
-            //Toast.makeText(this,naped,Toast.LENGTH_SHORT).show();
 
             //TOAST PERSONALIZADO
             LayoutInflater inflater = getLayoutInflater();
@@ -365,12 +358,8 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
         }
 
 
-
-
-
-
-        //AÑADIR A UN FICHERO LO DEL ARRAYLIST<STRING> comidas PARA SABER QUE ES LO QUE VA PIDIENDO EL CLIENTE
-
+        //SE VA GUARDANDO EN UN FIHERO LO DEL ARRAYLIST<STRING> comidas PARA SABER QUE ES LO QUE VA PIDIENDO EL CLIENTE
+        //Para añadir sin borrar lo de antes se usa el MODE_APPEND
         try {
             fichero = new OutputStreamWriter(openFileOutput("ficheroPedido.txt", Context.MODE_APPEND));
             for (int z=0;z<comidas.size();z++) {
@@ -407,33 +396,27 @@ public class ActivityComida extends AppCompatActivity implements FragmentLVMulti
                 else if (comidas.get(z).equals("Carpaccio de Carne")){ precio=12; }
                 else if (comidas.get(z).equals("Provolone a la Plancha")){ precio=9; }
 
-
+                //se escribe en el fichero ficheroPedido.txt de esta manera:
+                //Pizza Margarita; Precio: 10
+                //Espagueti al Pesto; Precio: 9
                 fichero.write(comidas.get(z)+"; Precio: "+ precio +System.lineSeparator());
+                //System.lineSeparator() para salto de linea
             }
-            //System.out.println("Precio TOTAL: " + precioTotal);
+            //se cierra el fichero
             fichero.close();
         } catch (IOException e) {
             System.out.println("Error escribiendo el fichero");
         }
 
 
-
+        //Volver a MainActivity para seguir con el pedido
         Intent i2 = new Intent(ActivityComida.this,MainActivity.class);
-        //Guardar lo que habia en MainActivity con el flag FLAG_ACTIVITY_REORDER_TO_FRONT
+        //Guardar el estado anterior de MainActivity con el flag FLAG_ACTIVITY_REORDER_TO_FRONT
         i2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(i2);
 
 
-    }
-
-
-
-
-
-
-
-
-
+    } //fin onClick
 
 
 

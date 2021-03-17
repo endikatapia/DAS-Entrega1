@@ -21,7 +21,7 @@ public class ActivityPreferencias extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //IDIOMA
+        //IDIOMA --> seleccionado en las preferencias (por defecto: castellano)
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String idioma = prefs.getString("idiomapref", "es");
         //establecer idioma
@@ -38,6 +38,7 @@ public class ActivityPreferencias extends AppCompatActivity {
 
         //Obtenemos las preferencias
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //por defecto la comida favorita sera la pizza
         comidaPref = prefs.getString("comidapref","Pizza");
     }
 
@@ -45,12 +46,13 @@ public class ActivityPreferencias extends AppCompatActivity {
     public void onClickGuardar(View v){
         //Al clickar guardar se establecen las nuevas preferencias y vamos a MainActivity
         Intent i = new Intent(this,MainActivity.class);
-        //recogemos el usuario desde MainActivity
+        //recogemos el usuario desde MainActivity y se lo volvemos a pasar a MainActivity para que se mantenga
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String user = extras.getString("usuario");
             i.putExtra("usuario",user);
         }
+        //tambien le pasamos en el intent la comida preferida seleccionada
         i.putExtra("comidaPref",comidaPref);
         startActivity(i);
 

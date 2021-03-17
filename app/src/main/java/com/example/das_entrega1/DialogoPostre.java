@@ -26,9 +26,8 @@ public class DialogoPostre extends DialogFragment {
         super.onCreateDialog(savedInstanceState);
 
         miListener =(ListenerdelDialogo) getActivity();
-        //estilo de dialogo definido en styles.xml
-        //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //para establecer los strings segun el idioma seleccionado en preferencias se usa: getString(R.string.usudialogo);
         String cp = getString(R.string.continuarPedido);
         String poc = getString(R.string.postreOcarta);
         String pos = getString(R.string.postres);
@@ -38,6 +37,7 @@ public class DialogoPostre extends DialogFragment {
         builder.setPositiveButton(pos, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //Lo gestiona la actividad MainActivity mediante miListener
                 miListener.alpulsarSi();
 
             }
@@ -46,7 +46,7 @@ public class DialogoPostre extends DialogFragment {
         builder.setNegativeButton(vc, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                //Al pulsar volver a la carta NO hace nada
             }
         });
 

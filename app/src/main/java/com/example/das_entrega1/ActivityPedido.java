@@ -33,7 +33,7 @@ public class ActivityPedido extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        //establecer idioma
+        //establecer idioma seleccionado en las preferencias (por defecto: castellano)
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String idioma = prefs.getString("idiomapref", "es");
 
@@ -48,6 +48,7 @@ public class ActivityPedido extends AppCompatActivity {
 
         setContentView(R.layout.activity_pedido);
 
+        //Definir los platos que estan en mas de 1 idioma con getString. De esta manera mirara en strings.xml.
         String p2 = getString(R.string.pizza2);
         String p4 = getString(R.string.pizza4);
         String p5 = getString(R.string.pizza5);
@@ -79,11 +80,6 @@ public class ActivityPedido extends AppCompatActivity {
         String pst2 = getString(R.string.postre2);
         String pst3 = getString(R.string.postre3);
 
-
-
-
-
-
         lv2 = findViewById(R.id.lv2);
         tvPrecio = (TextView) findViewById(R.id.textViewPrecio);
 
@@ -92,8 +88,7 @@ public class ActivityPedido extends AppCompatActivity {
 
         Bundle extras= getIntent().getExtras();
         if (extras != null){
-
-            //para cerrar la notificacion al pulsar ver pedido
+            //para cerrar la notificacion al pulsar ver pedido mediante el id
             int id=extras.getInt("id");
             NotificationManager elManager = (NotificationManager)
                     getSystemService(Context.NOTIFICATION_SERVICE);
@@ -105,9 +100,11 @@ public class ActivityPedido extends AppCompatActivity {
 
             for (int i=0; i<partesPlato.length;i++){
                 System.out.println("Plato:" + partesPlato[i]);
+                //si el plato se escribe de la misma manera para los 3 para los 3 no hay problema
+                //solo cogemos el precio
                 if (partesPlato[i].equals("Pizza Margarita")){ precio= 10; }
                 else if (partesPlato[i].equals("Pizza Boloñesa")){
-                    partesPlato[i]=p2; //depende en el idioma que estemos
+                    partesPlato[i]=p2; //guardara ese plato depende en el idioma que estemos
                     precio=13.50; }
                 else if (partesPlato[i].equals("Pizza Carbonara")){ precio=13.50; }
                 else if (partesPlato[i].equals("Pizza 4 Quesos")){
@@ -192,18 +189,22 @@ public class ActivityPedido extends AppCompatActivity {
                     precio=6.50; }
                 else if (partesPlato[i].equals("Panna cotta")){ precio=6;}
 
+                //añadira al ArrayList<Double> precios el precio de ese plato
                 precios.add(precio);
             }
 
+
+            //Se genera un adaptador y se le indican qué datos debe mostrar (partesPlato) y cómo debe mostrarlos (simple_list_item_2)
+            //Creamos el ArrayAdapter con la posibilidad de visualizar 2 textView en una fila --> simple_list_item_2
             eladaptador= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2,android.R.id.text1,partesPlato){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View vista= super.getView(position, convertView, parent);
                     TextView lineaprincipal=(TextView) vista.findViewById(android.R.id.text1);
                     TextView lineasecundaria=(TextView) vista.findViewById(android.R.id.text2);
-                    //linea principal poner el plato
+                    //linea principal: poner el plato
                     lineaprincipal.setText(partesPlato[position]);
-                    //secundaria el precio
+                    //linea secundaria: poner el precio
                     String pr = getString(R.string.precio);
                     lineasecundaria.setText(pr + String.valueOf(precios.get(position)) + "€");
 
@@ -212,19 +213,22 @@ public class ActivityPedido extends AppCompatActivity {
             };
             lv2.setAdapter(eladaptador);
 
+            //Text View del precioTotal
             double precioT = extras.getDouble("precio");
             tvPrecio.setText(tvPrecio.getText()+": " + precioT + "€");
             }
     }
 
     public void onClickIrCarta(View v){
+        //cuando se pulse volver a la carta se podra realizar otro pedido
         Intent intentVolverCarta = new Intent(ActivityPedido.this,MainActivity.class);
         //Guardar lo que habia en MainActivity con el flag FLAG_ACTIVITY_REORDER_TO_FRONT
         intentVolverCarta.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intentVolverCarta);
     }
 
-    //al pulsar atras que se minimize
+    //al pulsar el boton de atras la actividad se minimiza
+    //Asi evitaremos incongruencias en la pila de actividades
     @Override
     public void onBackPressed() {
         this.moveTaskToBack(true);

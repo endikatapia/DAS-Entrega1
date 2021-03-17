@@ -27,37 +27,45 @@ public class miBD extends SQLiteOpenHelper {
 
     }
 
+    //este metodo mirara si el usuario esta en la BBDD Usuarios devolviendo un boolean como respuesta
+    //recibe como parametro el usuario introducido en el EditText
     public boolean esta(String user) {
         SQLiteDatabase bd = getWritableDatabase();
         boolean esta=false;
         Cursor c = bd.rawQuery("SELECT * FROM Usuarios WHERE Usuario='"+user+"'", null);
-        //Si esta metida el usuario, es decir, si en el cursor hay 1 elemento
+        //Si esta metido el usuario, es decir, si en el cursor hay 1 elemento, el usuario existe.
         if (c.moveToNext()){
             esta= true;
         }
-        c.close();
+        c.close(); //cerramos el cursor
         return esta;
     }
 
+    //este metodo mirara si el usuario ha introducido su contraseña correctamente y devolvera un boolean como respuesta
+    //recibe como parametros el usuario y la contraseña introducidos en el EditText
+    public boolean contraseñaCorrecta(String user, String password) {
+        SQLiteDatabase bd = getWritableDatabase();
+        boolean correcta=false;
+        Cursor c = bd.rawQuery("SELECT * FROM Usuarios WHERE Usuario='"+user+"' AND Contraseña='"+password+"'", null);
+        //Si el cursor nos devuelve 1 elemento la contraseña de ese usuario será correcta
+        if (c.moveToNext()){
+            correcta= true;
+        }
+        c.close(); //cerramos el cursor
+        return correcta;
+
+    }
+
+    //este metodo inserta al usuario en la BBDD Usuarios pasandole de parametros el usuario y la contraseña
     public void insertarEnLaBBDD(String user, String password) {
         SQLiteDatabase bd = getWritableDatabase();
         bd.execSQL("INSERT INTO Usuarios VALUES ('"+user+"','"+password+"')");
         System.out.println("Usuario: " + user + " añadido en la BBDD Usuarios");
     }
 
-    public boolean contraseñaCorrecta(String user, String password) {
-        SQLiteDatabase bd = getWritableDatabase();
-        boolean correcta=false;
-        Cursor c = bd.rawQuery("SELECT * FROM Usuarios WHERE Usuario='"+user+"' AND Contraseña='"+password+"'", null);
-        //Si esta metida el usuario, es decir, si en el cursor hay 1 elemento
-        if (c.moveToNext()){
-            correcta= true;
-        }
-        c.close();
-        return correcta;
 
-    }
-
+    //este metodo inserta un nuevo pedido en la BBDD Pedidos pasandole de parametros
+    //un String que contendra los elementos Pedidos y un Double que sera el precio total del pedido
     public void guardarPedido(String elementosPedidosSinRepeticion, double precioTotal) {
         SQLiteDatabase bd = getWritableDatabase();
         //añadimos a la BD Pedidos el ultimo pedido realizado

@@ -17,35 +17,23 @@ public class ElViewHolder extends RecyclerView.ViewHolder {
     public TextView eltexto;
     public ImageView laimagen;
     public boolean[] seleccion;
-    //public CardView cardView;
 
     public ElViewHolder(@NonNull View itemView) {
         super(itemView);
+        //En el constructor de la clase se hace la asociación entre los campos de la clase y los elementos gráficos del layout
+        //En esta aplicacion cada CardView consta de la imagen de la comida y el nombre de la misma.
         eltexto = itemView.findViewById(R.id.texto);
         laimagen = itemView.findViewById(R.id.foto);
-        //cardView = itemView.findViewById(R.id.cardView);
 
-
-
-        //PREFERENCIAS ????
-        /*
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
-        String comidaPref = prefs.getString("comidapref", "Pizza");
-        if (comidaPref.equals("Pizza")){
-            eltexto.setTypeface(null, Typeface.BOLD_ITALIC);
-            eltexto.setTextColor(Color.GREEN);
-        }
-        else if (comidaPref.equals("Ensalada")){
-            eltexto.setTypeface(null, Typeface.BOLD_ITALIC);
-            eltexto.setTextColor(Color.RED);
-        }
-
-         */
-
+        //Se define un listener para cada itemView y se gestiona qué se quiere hacer al seleccionar cada elemento
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //creamos el intent para ir a la actividad que mostrara la lista de los platos de la categoria seleccionada
                 Intent i1 = new Intent(itemView.getContext(),ActivityComida.class);
+                //Cuando se haga click en un cardView se guardara la posicion seleccionada de esa categoria
+                //mas tarde se usara ese numero para establecer la lista de platos de esa categoria
+                //mediante el metodo ponerLista() de ActivityComida
                 if(getAdapterPosition()==0) {
                     i1.putExtra("categoria",0);
                     itemView.getContext().startActivity(i1);
@@ -65,7 +53,6 @@ public class ElViewHolder extends RecyclerView.ViewHolder {
                     i1.putExtra("categoria",4);
                     itemView.getContext().startActivity(i1);
                 }
-
 
 
             }

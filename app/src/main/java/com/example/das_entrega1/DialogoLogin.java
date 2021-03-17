@@ -16,6 +16,7 @@ public class DialogoLogin extends DialogFragment {
     ListenerdelDialogo miListener;
     private String usuario;
 
+    //constructor con el usuario
     public DialogoLogin(String user) {
         usuario=user;
     }
@@ -30,10 +31,9 @@ public class DialogoLogin extends DialogFragment {
         super.onCreateDialog(savedInstanceState);
 
         miListener =(ListenerdelDialogo) getActivity();
-        //estilo de dialogo definido en styles.xml
-        //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.AlertDialogCustom);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         //recogemos el usuario que nos viene de parametro desde el constructor
+        //para establecer los strings segun el idioma seleccionado en preferencias se usa: getString(R.string.usudialogo);
         String usudialogo = getString(R.string.usudialogo);
         String noexiste = getString(R.string.noexiste);
         String registro = getString(R.string.registrar);
@@ -44,7 +44,7 @@ public class DialogoLogin extends DialogFragment {
         builder.setPositiveButton(si, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Lo gestiona la actividad ActivityLogin
+                //Lo gestiona la actividad ActivityLogin mediante miListener
                 miListener.alpulsarSi();
             }
         });
@@ -56,9 +56,9 @@ public class DialogoLogin extends DialogFragment {
             }
         });
 
-        //Al pulsar fuera o al dar al boton de atras no se cancela el dialogo
+        //Al pulsar fuera o al presionar el boton back no se cancela el dialogo
         setCancelable(false);
-        //para que al rotar el dialog no pete
+        //Cuando rotemos el dialogo setRetainInstance(true) para funcionamiento correcto
         setRetainInstance(true);
         return builder.create();
     }
