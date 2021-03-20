@@ -18,8 +18,8 @@
     <Button
         android:id="@+id/buttonOnVolver"
         style="@style/FuenteDASParaButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="286dp"
+        android:layout_height="37dp"
         android:layout_marginTop="26dp"
         android:onClick="onClickAnadirYvolver"
         android:text="@string/añadiryvolver"

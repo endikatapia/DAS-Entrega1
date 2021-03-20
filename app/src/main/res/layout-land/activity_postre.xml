@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/fragmentLista"
         android:name="com.example.das_entrega1.FragmentLVMultipleChoice"
-        android:layout_width="240dp"
+        android:layout_width="230dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="72dp" />
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/fragmentFotoIndv"
         android:name="com.example.das_entrega1.FragmentDetalles"
-        android:layout_width="265dp"
+        android:layout_width="245dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toEndOf="@+id/fragmentLista"
         tools:layout_editor_absoluteY="80dp" />
@@ -27,7 +27,7 @@
         style="@style/FuenteDASParaButton"
         android:layout_width="103dp"
         android:layout_height="65dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="15dp"
         android:onClick="onClickFinalizar"
         android:text="@string/finalizarPedido"
         app:layout_constraintBottom_toBottomOf="parent"
